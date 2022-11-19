@@ -1,0 +1,27 @@
+{
+    "package": "dev.tilera.auracore.mixins",
+    "refmap": "auracore.refmap.json",
+    "minVersion": "0.8",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+      "MixinItemShard",
+      "MixinItemEssence",
+      "MixinTileCrystal",
+      "MixinTileCrucible",
+      "MixinTileArcaneFurnace",
+      "MixinTileJarFillable",
+      "MixinTileAlembic",
+      "MixinBlockCustomPlant",
+      "MixinBlockCustomOre",
+      "MixinEventHandlerEntity",
+      "MixinSlotLimitedByWand",
+      "MixinThaumcraftWorldGenerator"
+    ],
+    "client": [
+      "MixinBlockCustomOreRenderer",
+      "MixinTileArcaneWorkbenchRenderer"
+    ],
+    "injectors": {
+      "defaultRequire": 1
+    }
+}
