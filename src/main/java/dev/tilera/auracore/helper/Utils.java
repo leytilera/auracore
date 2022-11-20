@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.spi.AbstractInterruptibleChannel;
 
+import dev.tilera.auracore.api.IWand;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.BlockStem;
+import net.minecraft.block.IGrowable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -21,6 +23,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import thaumcraft.api.IGoggles;
+import thaumcraft.api.IVisDiscountGear;
 
 public class Utils {
     
@@ -41,63 +44,23 @@ public class Utils {
 
     public static boolean useBonemealAtLoc(World world, int x, int y, int z) {
         Block bi = world.getBlock(x, y, z);
-        if (bi == Blocks.sapling) {
-            if (!world.isRemote) {
-                ((BlockSapling)bi).func_149878_d(world, x, y, z, world.rand); //TODO func
-            }
-            return true;
-        }
-        if (bi == Blocks.brown_mushroom || bi == Blocks.red_mushroom_block) {
-            if (!world.isRemote) {
-                ((BlockMushroom)bi).func_149884_c(world, x, y, z, world.rand); //TODO func
-            }
-            return true;
-        }
-        if (bi == Blocks.melon_stem || bi == Blocks.pumpkin_stem) {
-            if (world.getBlockMetadata(x, y, z) == 7) {
-                return false;
-            }
-            if (!world.isRemote) {
-                ((BlockStem)bi).func_149874_m(world, x, y, z); //TODO func
-            }
-            return true;
-        }
-        if (bi instanceof BlockCrops) {
-            if (world.getBlockMetadata(x, y, z) == 7) {
-                return false;
-            }
-            if (!world.isRemote) {
-                ((BlockCrops)bi).func_149863_m(world, x, y, z); //TODO func
-            }
-            return true;
-        }
-        if (bi == Blocks.cocoa) {
-            if (!world.isRemote) {
-                world.setBlockMetadataWithNotify(x, y, z, 8 | BlockDirectional.getDirection((int)world.getBlockMetadata(x, y, z)), 3);
-            }
-            return true;
-        }
-        /*if (bi == Blocks.grass) {
-            if (!world.isRemote) {
-                block0: for (int var12 = 0; var12 < 128; ++var12) {
-                    int var13 = x;
-                    int var14 = y + 1;
-                    int var15 = z;
-                    for (int var16 = 0; var16 < var12 / 16; ++var16) {
-                        if (world.getBlock(var13 += world.rand.nextInt(3) - 1, (var14 += (world.rand.nextInt(3) - 1) * world.rand.nextInt(3) / 2) - 1, var15 += world.rand.nextInt(3) - 1) != Blocks.grass || world.(var13, var14, var15)) continue block0;
+        if (bi instanceof IGrowable)
+        {
+            IGrowable igrowable = (IGrowable)bi;
+
+            if (igrowable.func_149851_a(world, x, y, z, world.isRemote))
+            {
+                if (!world.isRemote)
+                {
+                    if (igrowable.func_149852_a(world, world.rand, x, y, z))
+                    {
+                        igrowable.func_149853_b(world, world.rand, x, y, z);
                     }
-                    if (world.getBlock(var13, var14, var15) != 0) continue;
-                    if (world.rand.nextInt(10) != 0) {
-                        if (!Block.field_71962_X.func_71854_d(world, var13, var14, var15)) continue;
-                        world.func_72832_d(var13, var14, var15, Block.field_71962_X.field_71990_ca, 1, 3);
-                        continue;
-                        
-                    }
-                    ForgeHooks.plantGrass((World)world, (int)var13, (int)var14, (int)var15);
                 }
+
+                return true;
             }
-            return true;
-        }*/ //TODO: WTF
+        }
         return false;
     }
 
@@ -143,6 +106,34 @@ public class Utils {
             ++var3;
         }
         return var3;
+    }
+
+    public static int getTotalVisDiscount(final EntityPlayer player) {
+        int total = 0;
+        for (int a = 0; a < 4; ++a) {
+            if (player.inventory.armorItemInSlot(a) != null
+                && player.inventory.armorItemInSlot(a).getItem()
+                        instanceof IVisDiscountGear) {
+                total
+                    += ((IVisDiscountGear) player.inventory.armorItemInSlot(a).getItem())
+                           .getVisDiscount(
+                               player.inventory.armorItemInSlot(a), player, null
+                           );
+            }
+        }
+        return total;
+    }
+
+    public static boolean hasCharge(ItemStack is, EntityPlayer pl, int c) {
+        final int discount = 100 - Math.min(50, getTotalVisDiscount(pl));
+        c = Math.round(c * (discount / 100.0f));
+        return ((IWand) is.getItem()).getVis(is) >= c;
+    }
+
+    public static boolean spendCharge(final ItemStack itemstack, final EntityPlayer player, int amount) {
+        final int discount = 100 - Math.min(50, getTotalVisDiscount(player));
+        amount = Math.round(amount * (discount / 100.0f));
+        return ((IWand) itemstack.getItem()).consumeVis(itemstack, amount);
     }
 
 }
