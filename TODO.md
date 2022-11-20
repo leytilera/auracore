@@ -15,8 +15,6 @@
 - Crafting API
 
 ## Crafting
-- Old Arcane Workbench GUI
-- Arcane Workbench Vis crafting
 - Infusion Crafting implementation
 
 ## Crucible
@@ -26,6 +24,3 @@
 
 ## Config
 - Config options for many things
-
-## TC2
-- Taint level for Aura Nodes
