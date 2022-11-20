@@ -2,6 +2,8 @@ package dev.tilera.auracore;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -23,6 +25,7 @@ import dev.tilera.auracore.network.AuraTransferFXPacket;
 import dev.tilera.auracore.network.AuraTransferFXPacketHandler;
 import dev.tilera.auracore.network.NodeZapPacket;
 import dev.tilera.auracore.network.NodeZapPacketHandler;
+import dev.tilera.auracore.proxy.CommonProxy;
 import dev.tilera.auracore.world.WorldGenerator;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +39,10 @@ import thaumcraft.common.config.ConfigItems;
 public class AuraCore {
 
     public static SimpleNetworkWrapper CHANNEL;
+    @Mod.Instance("auracore")
+    public static AuraCore INSTANCE;
+    @SidedProxy(modId = "auracore", clientSide = "dev.tilera.auracore.proxy.ClientProxy", serverSide = "dev.tilera.auracore.proxy.CommonProxy")
+    public static CommonProxy proxy;
     
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
@@ -60,6 +67,11 @@ public class AuraCore {
         auraUpdateThread.setName("TC Aura Update Thread");
         auraUpdateThread.start();
         GameRegistry.registerWorldGenerator(new WorldGenerator(), 100);
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent ev) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 
     @Mod.EventHandler

@@ -13,8 +13,8 @@
       "MixinTileAlembic",
       "MixinBlockCustomPlant",
       "MixinBlockCustomOre",
+      "MixinBlockTable",
       "MixinEventHandlerEntity",
-      "MixinSlotLimitedByWand",
       "MixinThaumcraftWorldGenerator"
     ],
     "client": [
