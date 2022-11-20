@@ -28,6 +28,7 @@ public class AuraManagerClient {
         public double z;
         public short level;
         public short base;
+        public short taint;
         public int flux;
         public boolean lock;
         public byte type;
@@ -40,6 +41,7 @@ public class AuraManagerClient {
             z = packet.z;
             level = packet.level;
             base = packet.base;
+            taint = packet.taint;
             flux = packet.flux;
             lock = packet.lock;
             type = packet.type;
@@ -51,17 +53,20 @@ public class AuraManagerClient {
     public static class NodeHistoryStats {
 
         public short level;
+        public short taint;
         public int flux;
 
-        public NodeHistoryStats(short level, int flux) {
+        public NodeHistoryStats(short level, int flux, short taint) {
             this.level = level;
             this.flux = flux;
+            this.taint = taint;
         }
 
         public NodeHistoryStats(NodeStats stats) {
             if (stats != null) {
                 this.level = stats.level;
                 this.flux = stats.flux;
+                this.taint = stats.taint;
             }
         }
 

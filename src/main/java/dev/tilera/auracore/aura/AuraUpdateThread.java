@@ -29,6 +29,7 @@ public class AuraUpdateThread
                                 continue;
                             node.level = (short) (node.level + nc.levelMod);
                             node.baseLevel = (short) (node.baseLevel + nc.baseMod);
+                            node.taint = (short) (node.taint + nc.taintMod);
                             if (nc.lock) {
                                 node.locked = !node.locked;
                             }
@@ -37,6 +38,9 @@ public class AuraUpdateThread
                             }
                             if (node.baseLevel < 0) {
                                 node.baseLevel = 0;
+                            }
+                            if (node.taint < 0) {
+                                node.taint = 0;
                             }
                             if (nc.flux != null) {
                                 for (Aspect tag : nc.flux.getAspects()) {

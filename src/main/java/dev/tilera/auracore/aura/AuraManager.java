@@ -779,8 +779,21 @@ public class AuraManager {
     }
 
     public static void queueNodeChanges(int key, int levelMod, int baseMod, boolean toggleLock, AspectList flx, float x, float y, float z) {
-        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, toggleLock, flx, x, y, z);
+        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, 0, toggleLock, flx, x, y, z);
         auraUpdateQueue.add(nc);
+    }
+
+    public static void queueNodeChanges(int key, int levelMod, int baseMod, int taint, boolean toggleLock, AspectList flx, float x, float y, float z) {
+        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, taint, toggleLock, flx, x, y, z);
+        auraUpdateQueue.add(nc);
+    }
+
+    public static void addTaintToClosest(World world, int x, int y, int z, int taint) {
+        int key = getClosestAuraWithinRange(world, x, y, z, 64);
+        if (key < 0) {
+            key = registerAuraNode(world, (short)(world.rand.nextInt(50) + 50), EnumNodeType.DARK, world.provider.dimensionId, x, y, z);
+        }
+        queueNodeChanges(key, 0, 0, taint, false, null, x, y, z);
     }
 
     public static AuraNode copyNode(AuraNode in) {
@@ -789,6 +802,7 @@ public class AuraManager {
             out.key = in.key;
             out.level = in.level;
             out.baseLevel = in.baseLevel;
+            out.taint = in.taint;
             out.type = in.type;
             AspectList outflux = new AspectList();
             for (Aspect tag : in.flux.getAspects()) {
@@ -812,6 +826,7 @@ public class AuraManager {
         out.key = in.key;
         out.level = in.level;
         out.baseLevel = in.baseLevel;
+        out.taint = in.taint;
         out.type = in.type;
         out.flux = in.flux;
         out.dimension = in.dimension;
@@ -826,16 +841,18 @@ public class AuraManager {
         int key = 0;
         int levelMod = 0;
         int baseMod = 0;
+        int taintMod = 0;
         boolean lock = false;
         AspectList flux = null;
         float motionX;
         float motionY;
         float motionZ;
 
-        NodeChanges(int k, int l, int b, boolean lo, AspectList ot, float x, float y, float z) {
+        NodeChanges(int k, int l, int b, int t, boolean lo, AspectList ot, float x, float y, float z) {
             this.key = k;
             this.levelMod = l;
             this.baseMod = b;
+            this.taintMod = t;
             this.lock = lo;
             this.flux = ot;
             this.motionX = x;

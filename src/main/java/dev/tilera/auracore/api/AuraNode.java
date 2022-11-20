@@ -8,6 +8,7 @@ public class AuraNode implements Serializable {
     public int key;
     public short level;
     public short baseLevel;
+    public short taint;
     public AspectList flux = new AspectList();
     public EnumNodeType type;
     public int dimension;
@@ -26,6 +27,7 @@ public class AuraNode implements Serializable {
         this.xPos = (double)x + 0.5;
         this.yPos = (double)y + 0.5;
         this.zPos = (double)z + 0.5;
+        this.taint = 0;
         this.isVirtual = false;
     }
 

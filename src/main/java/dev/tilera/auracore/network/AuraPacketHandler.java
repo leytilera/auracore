@@ -19,7 +19,7 @@ public class AuraPacketHandler implements IMessageHandler<AuraPacket, IMessage> 
         }
         AuraManagerClient.auraClientList.put(message.key, new NodeStats(message, world.provider.dimensionId));
         if (AuraManagerClient.auraClientHistory.get(message.key) == null) {
-            AuraManagerClient.auraClientHistory.put(message.key, new NodeHistoryStats(message.level, message.flux));
+            AuraManagerClient.auraClientHistory.put(message.key, new NodeHistoryStats(message.level, message.flux, message.taint));
         }
         return null;
     }

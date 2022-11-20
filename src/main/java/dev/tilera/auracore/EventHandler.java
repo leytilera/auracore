@@ -29,6 +29,7 @@ public class EventHandler {
                     nodeNBT.setInteger("key", node.key);
                     nodeNBT.setShort("level", node.level);
                     nodeNBT.setShort("baseLevel", node.baseLevel);
+                    nodeNBT.setShort("taint", node.taint);
                     nodeNBT.setByte("type", (byte)node.type.ordinal());
                     nodeNBT.setDouble("xPos", node.xPos);
                     nodeNBT.setDouble("yPos", node.yPos);
@@ -67,6 +68,8 @@ public class EventHandler {
                     node.level = nodeData.getShort("level");
                     node.baseLevel = nodeData.getShort("baseLevel");
                     node.locked = nodeData.getBoolean("locked");
+                    if(nodeData.hasKey("taint"))
+                        node.taint = nodeData.getShort("taint");
                     if(nodeData.hasKey("isVirtual"))
                         node.isVirtual = nodeData.getBoolean("isVirtual");
                     node.type = EnumNodeType.getType(nodeData.getByte("type"));
