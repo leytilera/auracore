@@ -10,12 +10,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import thaumcraft.api.crafting.IArcaneRecipe;
+import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 public class SlotCraftingArcaneWorkbench extends SlotCrafting {
-    private final IInventory craftMatrix;
+    private final TileArcaneWorkbench craftMatrix;
     private EntityPlayer thePlayer;
 
-    public SlotCraftingArcaneWorkbench(EntityPlayer par1EntityPlayer, IInventory par2IInventory, IInventory par3IInventory, int par4, int par5, int par6) {
+    public SlotCraftingArcaneWorkbench(EntityPlayer par1EntityPlayer, TileArcaneWorkbench par2IInventory, IInventory par3IInventory, int par4, int par5, int par6) {
         super(par1EntityPlayer, par2IInventory, par3IInventory, par4, par5, par6);
         this.thePlayer = par1EntityPlayer;
         this.craftMatrix = par2IInventory;
