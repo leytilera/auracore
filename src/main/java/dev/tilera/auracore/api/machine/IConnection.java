@@ -1,5 +1,6 @@
 package dev.tilera.auracore.api.machine;
 
+import dev.tilera.auracore.api.HelperLocation;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IConnection
@@ -22,15 +23,15 @@ public interface IConnection
                                                                                                                                                                                               
     float getMaxVis();                                                                                                                                                                        
                                                                                                                                                                                               
-    int getVisSuction(int x, int y, int z);                                                                                                                                               
+    int getVisSuction(HelperLocation loc);                                                                                                                                               
                                                                                                                                                                                               
     void setVisSuction(int suction);                                                                                                                                                         
                                                                                                                                                                                               
-    int getTaintSuction(int x, int y, int z);                                                                                                                                             
+    int getTaintSuction(HelperLocation loc);                                                                                                                                             
                                                                                                                                                                                               
     void setTaintSuction(int suction);                                                                                                                                                       
                                                                                                                                                                                               
     void setSuction(int suction);                                                                                                                                                            
                                                                                                                                                                                               
-    int getSuction(int x, int y, int z);                                                                                                                                                  
+    int getSuction(HelperLocation loc);                                                                                                                                                  
 }

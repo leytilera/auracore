@@ -1,5 +1,6 @@
 package dev.tilera.auracore.api.machine;
 
+import dev.tilera.auracore.api.HelperLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -146,7 +147,7 @@ public class TileVisUser extends TileEntity implements IConnection
     }
     
     @Override
-    public int getVisSuction(int x, int y, int z) {
+    public int getVisSuction(HelperLocation loc) {
         return this.visSuction;
     }
     
@@ -156,7 +157,7 @@ public class TileVisUser extends TileEntity implements IConnection
     }
     
     @Override
-    public int getTaintSuction(int x, int y, int z) {
+    public int getTaintSuction(HelperLocation loc) {
         return this.taintSuction;
     }
     
@@ -172,7 +173,7 @@ public class TileVisUser extends TileEntity implements IConnection
     }
     
     @Override
-    public int getSuction(int x, int y, int z) {
+    public int getSuction(HelperLocation loc) {
         return Math.max(this.visSuction, this.taintSuction);
     }
 }
