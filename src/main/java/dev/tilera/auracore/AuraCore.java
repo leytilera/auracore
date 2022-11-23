@@ -6,6 +6,9 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -13,6 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import dev.tilera.auracore.api.Aspects;
 import dev.tilera.auracore.aura.AuraCalculationThread;
 import dev.tilera.auracore.aura.AuraDeleteThread;
+import dev.tilera.auracore.aura.AuraManager;
 import dev.tilera.auracore.aura.AuraUpdateThread;
 import dev.tilera.auracore.aura.AuraWorldTicker;
 import dev.tilera.auracore.client.GUITicker;
@@ -89,6 +93,16 @@ public class AuraCore {
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigBlocks.blockCustomOre, 1, 8), new AspectList().add(Aspect.EARTH, 1).add(Aspect.MAGIC, 3).add(Aspect.CRYSTAL, 2));
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigBlocks.blockCustomOre, 1, 9), new AspectList().add(Aspect.EARTH, 1).add(Aspect.CRYSTAL, 2));
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigBlocks.blockCustomOre, 1, 10), new AspectList().add(Aspect.EARTH, 1).add(Aspect.TAINT, 3).add(Aspect.CRYSTAL, 2));
+    }
+
+    @Mod.EventHandler
+    public void onServerLoad(FMLServerAboutToStartEvent event) {
+        AuraManager.invalidate();
+    }
+
+    @Mod.EventHandler
+    public void onServerStop(FMLServerStoppedEvent event) {
+        AuraManager.invalidate();
     }
 
 }

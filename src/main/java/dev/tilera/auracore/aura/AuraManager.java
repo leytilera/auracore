@@ -50,6 +50,18 @@ public class AuraManager {
     public static Object saveLock = new Object();
     public static NodeIdStorage nodeIdStore = null;
 
+    public static void invalidate() {
+        auraNodes.clear();;
+        auraUpdateList.clear();
+        nodeNeighbours.clear();;
+        nodeChunks.clear();
+        markedForTransmission.clear();;
+        fluxEventList.clear();
+        auraCalcQueue.clear();
+        auraDeleteQueue.clear();
+        auraUpdateQueue.clear();
+    }
+
     public static int registerAuraNode(World world, short lvl, EnumNodeType type, int dim, int x, int y, int z) {
         return registerAuraNode(world, lvl, type, dim, x, y, z, false);
     }
