@@ -19,8 +19,6 @@
 
 ## Crucible
 - Old Crucible crafting
-- No Flux goo & gas
-- No boiling down to primal aspects
 
 ## Config
 - Config options for many things
