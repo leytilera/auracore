@@ -24,4 +24,14 @@ public class CrystalColors {
         }
     }
 
+    public static int getColorForCrystal(int meta) {
+        if (meta > 10 || meta < 0) {
+            return 0xFFFFFF;
+        } else if (meta > 7) {
+            return colors[meta - 1];
+        } else {
+            return colors[meta + 1];
+        }
+    }
+
 }

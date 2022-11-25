@@ -6,6 +6,7 @@
     "mixins": [
       "MixinItemShard",
       "MixinItemEssence",
+      "MixinBlockCrystalItem",
       "MixinTileCrystal",
       "MixinTileCrucible",
       "MixinTileArcaneFurnace",
@@ -14,12 +15,15 @@
       "MixinBlockCustomPlant",
       "MixinBlockCustomOre",
       "MixinBlockTable",
+      "MixinBlockCrystal",
       "MixinEventHandlerEntity",
       "MixinThaumcraftWorldGenerator"
     ],
     "client": [
       "MixinBlockCustomOreRenderer",
-      "MixinTileArcaneWorkbenchRenderer"
+      "MixinTileArcaneWorkbenchRenderer",
+      "MixinTileCrystalRenderer",
+      "MixinBlockCrystalRenderer"
     ],
     "injectors": {
       "defaultRequire": 1

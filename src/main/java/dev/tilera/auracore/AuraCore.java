@@ -7,7 +7,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -75,6 +74,8 @@ public class AuraCore {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ev) {
+        ConfigBlocks.blockCrystal.setTickRandomly(true);
+        Recipes.initRecipes();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 
