@@ -30,6 +30,7 @@ public abstract class MixinItemShard extends Item {
      * @author tilera
      * @reason Vis, Tainted and Dull shards
      */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Overwrite
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {

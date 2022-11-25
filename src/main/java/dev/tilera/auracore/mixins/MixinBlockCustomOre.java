@@ -37,6 +37,7 @@ public abstract class MixinBlockCustomOre extends Block {
      * @author tilera
      * @reason Vis, Tainted and Dull ores
      */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Overwrite
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {

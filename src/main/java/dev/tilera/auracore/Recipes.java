@@ -16,6 +16,7 @@ public class Recipes {
         ConfigResearch.recipes.put("Clusters9", shapelessOreDictRecipe(new ItemStack(ConfigBlocks.blockCrystal, 1, 9), new Object[] { new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 7) }));
     }
 
+    @SuppressWarnings({"unchecked"})
     static IRecipe shapelessOreDictRecipe(final ItemStack res, final Object[] params) {
         final IRecipe rec = (IRecipe)new ShapelessOreRecipe(res, params);
         CraftingManager.getInstance().getRecipeList().add(rec);

@@ -22,6 +22,7 @@ public class SlotCraftingArcaneWorkbench extends SlotCrafting {
         this.craftMatrix = par2IInventory;
     }
 
+    @SuppressWarnings({"deprecation"})
     public void onPickupFromSlot(EntityPlayer par1EntityPlayer, ItemStack par1ItemStack) {
         FMLCommonHandler.instance().firePlayerCraftingEvent(this.thePlayer, par1ItemStack, this.craftMatrix);
         this.onCrafting(par1ItemStack);
