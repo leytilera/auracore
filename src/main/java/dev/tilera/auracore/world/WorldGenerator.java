@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import cpw.mods.fml.common.IWorldGenerator;
+import dev.tilera.auracore.Config;
 import dev.tilera.auracore.api.EnumNodeType;
 import dev.tilera.auracore.aura.AuraManager;
 import dev.tilera.auracore.aura.NodeIdStorage;
@@ -92,7 +93,7 @@ public class WorldGenerator implements IWorldGenerator {
     }
 
     private boolean generateAura(World world, Random random, int chunkX, int chunkZ, boolean auraGen, boolean newGen) {
-        if (random.nextInt(/*Config.nodeRarity*/23) == 0 && !auraGen) {
+        if (random.nextInt(Config.nodeRarity) == 0 && !auraGen) {
             int y;
             int p;
             int z;
@@ -117,7 +118,7 @@ public class WorldGenerator implements IWorldGenerator {
             boolean bbase = false;
             int value = random.nextInt(/*BiomeHandler.getBiomeAura(bg)*/400 / 2) + /*BiomeHandler.getBiomeAura(bg)*/400 / 2;
             EnumNodeType type = EnumNodeType.NORMAL;
-            if (random.nextInt(/*Config.specialNodeRarity*/75) == 0) {
+            if (random.nextInt(Config.specialNodeRarity) == 0) {
                 switch (random.nextInt(3)) {
                     case 0: {
                         type = EnumNodeType.PURE;

@@ -49,6 +49,7 @@ public class AuraCore {
     
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
+        Config.load();
         Aspects.load();
         CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel("auracore");
         int pktID = 0;

@@ -19,6 +19,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.config.Config;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
+import thaumcraft.common.lib.world.WorldGenSilverwoodTrees;
 import thaumcraft.common.lib.world.biomes.BiomeHandler;
 
 @Mixin(ThaumcraftWorldGenerator.class)
@@ -36,7 +37,7 @@ public abstract class MixinThaumcraftWorldGenerator {
         BiomeGenBase bio = world.getBiomeGenForCoords(x, z);
         if (bio.equals(ThaumcraftWorldGenerator.biomeMagicalForest) || bio.equals(ThaumcraftWorldGenerator.biomeTaint) || !BiomeDictionary.isBiomeOfType(bio, Type.MAGICAL) && bio.biomeID != BiomeGenBase.forestHills.biomeID && bio.biomeID != BiomeGenBase.birchForestHills.biomeID) {
            return false;
-        } else {
+        } else if (dev.tilera.auracore.Config.replaceSilverwood) {
            boolean t = (new WorldGenSilverwoodTreesOld(false)).generate(world, random, x, y, z);
            if (t) {
             int value = random.nextInt(200) + 200;
@@ -44,6 +45,8 @@ public abstract class MixinThaumcraftWorldGenerator {
             ThaumcraftWorldGenerator.generateFlowers(world, random, x, y, z, 2);
            }
            return t;
+        } else {
+           return (new WorldGenSilverwoodTrees(false, 7, 4)).generate(world, random, x, y, z);
         }
      }
 
