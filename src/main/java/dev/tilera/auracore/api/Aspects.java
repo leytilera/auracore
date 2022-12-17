@@ -20,6 +20,8 @@ public class Aspects {
     public static final Aspect FLOWER = new Aspect("flos", 0xFFFF40, new Aspect[] {Aspect.PLANT, Aspects.SOIL}, new ResourceLocation("auracore", "textures/aspects/flos.png"), 1);
     public static final Aspect FUNGUS = new Aspect("fungus", 16246215, new Aspect[] {Aspect.PLANT, Aspect.TREE}, new ResourceLocation("auracore", "textures/aspects/fungus.png"), 1);
 
+    public static final Aspect VIS = new VirtualAspect("vis", 9896128, new ResourceLocation("thaumcraft", "textures/aspects/praecantatio.png"), 1);
+
     public static void load() {}
 
 }
