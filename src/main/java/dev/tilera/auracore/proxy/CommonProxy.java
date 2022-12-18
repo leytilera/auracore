@@ -8,6 +8,8 @@ import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 public class CommonProxy implements IGuiHandler {
 
+    public void preInit() {}
+
     @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         if (id == 0) {
