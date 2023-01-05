@@ -4,6 +4,9 @@ item.ItemShard.9.name=Tainted Shard
 tile.blockCustomOre.8.name=Vis Infused Ore
 tile.blockCustomOre.9.name=Dull Ore
 tile.blockCustomOre.10.name=Tainted Ore
+tile.blockCrystal.8.name=Vis Crystal Cluster
+tile.blockCrystal.9.name=Mixed Crystal Cluster
+tile.blockCrystal.10.name=Tainted Crystal Cluster
 
 tc.aspect.bestiola=Spider, Web, Insects
 tc.aspect.malum=Evil, The Nether, Malice
