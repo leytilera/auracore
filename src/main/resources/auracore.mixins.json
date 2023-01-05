@@ -17,7 +17,8 @@
       "MixinBlockTable",
       "MixinBlockCrystal",
       "MixinEventHandlerEntity",
-      "MixinThaumcraftWorldGenerator"
+      "MixinThaumcraftWorldGenerator",
+      "MixinPlayerKnowledge"
     ],
     "client": [
       "MixinBlockCustomOreRenderer",
