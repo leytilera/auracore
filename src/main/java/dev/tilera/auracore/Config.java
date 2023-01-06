@@ -12,6 +12,8 @@ public class Config {
     public static int specialNodeRarity = 75;
     public static boolean replaceSilverwood = true;
     public static boolean knowAllAspects = true;
+    public static boolean replaceAspects = true;
+    public static boolean legacyAspects = false;
 
     public static boolean noScanning() {
         return knowAllAspects;
@@ -23,6 +25,8 @@ public class Config {
         specialNodeRarity = config.get("worldgen", "specialNodeRarity", specialNodeRarity).getInt(specialNodeRarity);
         replaceSilverwood = config.getBoolean("replaceSilverwood", "worldgen", replaceSilverwood, "Replace Silverwood trees with TC3 Silverwood");
         knowAllAspects = config.getBoolean("knowAllAspects", "research", knowAllAspects, "Know all Aspects from beginning");
+        replaceAspects = config.getBoolean("replaceAspects", "client", replaceAspects, "Replace some aspect textures");
+        legacyAspects = config.getBoolean("legacyAspects", "aspects", legacyAspects, "Use TC3 item aspects");
         config.save();
     }
 

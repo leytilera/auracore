@@ -29,7 +29,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 
-@Mod(modid = "auracore", name = "AuraCore", version = "{VERSION}", dependencies = "required-after:Thaumcraft")
+@Mod(modid = "auracore", name = "AuraCore", version = "{VERSION}", dependencies = "required-after:Thaumcraft;after:MagicBees")
 public class AuraCore {
 
     public static SimpleNetworkWrapper CHANNEL;
