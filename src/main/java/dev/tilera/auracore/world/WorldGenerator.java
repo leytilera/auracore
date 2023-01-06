@@ -79,8 +79,12 @@ public class WorldGenerator implements IWorldGenerator {
             if (var7 != null && !this.structureNode.containsKey(var7.hashCode())) {
                 auraGen = true;
                 this.structureNode.put(var7.hashCode(), true);
-                int value = random.nextInt(200) + 800;
-                AuraManager.registerAuraNode(world, (short)value, EnumNodeType.NORMAL, world.provider.dimensionId, var7.chunkPosX, world.getHeightValue(var7.chunkPosX, var7.chunkPosZ) + 3, var7.chunkPosZ);
+                int yPos = world.getHeightValue(var7.chunkPosX, var7.chunkPosZ) + 3;
+                int nearKey = AuraManager.getClosestAuraWithinRange(world, var7.chunkPosX, yPos, var7.chunkPosZ, 10);
+                if (nearKey < 0) {
+                    int value = random.nextInt(200) + 800;
+                    AuraManager.registerAuraNode(world, (short)value, EnumNodeType.NORMAL, world.provider.dimensionId, var7.chunkPosX, yPos, var7.chunkPosZ);
+                }
             }
             auraGen = this.generateAura(world, random, chunkX, chunkZ, auraGen, newGen);
         }
