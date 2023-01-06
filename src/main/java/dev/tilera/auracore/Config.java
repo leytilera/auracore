@@ -13,6 +13,10 @@ public class Config {
     public static boolean replaceSilverwood = true;
     public static boolean knowAllAspects = true;
 
+    public static boolean noScanning() {
+        return knowAllAspects;
+    }
+
     public static void load() {
         config.load();
         nodeRarity = config.get("worldgen", "nodeRarity", nodeRarity).getInt(nodeRarity);

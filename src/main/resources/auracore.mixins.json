@@ -24,7 +24,8 @@
       "MixinBlockCustomOreRenderer",
       "MixinTileArcaneWorkbenchRenderer",
       "MixinTileCrystalRenderer",
-      "MixinBlockCrystalRenderer"
+      "MixinBlockCrystalRenderer",
+      "MixinClientTickEventsFML"
     ],
     "injectors": {
       "defaultRequire": 1
