@@ -96,6 +96,7 @@ public class WorldGenerator implements IWorldGenerator {
         }
     }
 
+    @SuppressWarnings({"unused"})
     private boolean generateAura(World world, Random random, int chunkX, int chunkZ, boolean auraGen, boolean newGen) {
         if (random.nextInt(Config.nodeRarity) == 0 && !auraGen) {
             int y;

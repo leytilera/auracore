@@ -62,7 +62,7 @@ public abstract class MixinClientTickEventsFML {
            int guiTop = (gui.height - ys) / 2;
            if (this.isMouseOverSlot(var23, var16, var17, guiLeft, guiTop) && var23.getStack() != null) {
               int h = ScanManager.generateItemHash(var23.getStack().getItem(), var23.getStack().getItemDamage());
-              List<String> list = (List)Thaumcraft.proxy.getScannedObjects().get(player.getCommandSenderName());
+              List<String> list = Thaumcraft.proxy.getScannedObjects().get(player.getCommandSenderName());
               if (Config.noScanning() || (list != null && (list.contains("@" + h) || list.contains("#" + h)))) {
                  AspectList tags = ThaumcraftCraftingManager.getObjectTags(var23.getStack());
                  tags = ThaumcraftCraftingManager.getBonusTags(var23.getStack(), tags);
