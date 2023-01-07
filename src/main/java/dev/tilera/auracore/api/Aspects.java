@@ -35,6 +35,8 @@ public class Aspects {
             ReflectionHelper.setPrivateValue(Aspect.class, Aspect.TREE, 360709, "color");
             ReflectionHelper.setPrivateValue(Aspect.class, Aspect.TREE, new ResourceLocation("auracore", "textures/aspects/lignum.png"), "image");
             ReflectionHelper.setPrivateValue(Aspect.class, Aspect.FIRE, new ResourceLocation("auracore", "textures/aspects/ignis.png"), "image");
+            ReflectionHelper.setPrivateValue(Aspect.class, Aspect.WATER, new ResourceLocation("auracore", "textures/aspects/aqua.png"), "image");
+            ReflectionHelper.setPrivateValue(Aspect.class, Aspect.CRYSTAL, new ResourceLocation("auracore", "textures/aspects/vitreus.png"), "image");
         }
         if (Loader.isModLoaded("MagicBees")) {
             TIME = Aspect.getAspect("tempus");
