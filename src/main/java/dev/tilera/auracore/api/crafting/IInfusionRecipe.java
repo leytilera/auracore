@@ -22,8 +22,4 @@ public interface IInfusionRecipe {
     String getKey();
 
     String getResearch();
-
-    default boolean isSimple() {
-        return getAspects() == null || getRecipeSize() <= 6;
-    }
 }
