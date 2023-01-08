@@ -4,6 +4,8 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import dev.tilera.auracore.client.FXSparkle;
 import dev.tilera.auracore.helper.Utils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +13,7 @@ import net.minecraft.util.MathHelper;
 
 public class AuraTransferFXPacketHandler implements IMessageHandler<AuraTransferFXPacket, IMessage> {
 
+    @SideOnly(Side.CLIENT)
     @Override
     public IMessage onMessage(AuraTransferFXPacket message, MessageContext ctx) {
         EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();

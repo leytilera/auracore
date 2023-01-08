@@ -3,6 +3,8 @@ package dev.tilera.auracore.network;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
@@ -10,6 +12,7 @@ import thaumcraft.client.fx.bolt.FXLightningBolt;
 
 public class NodeZapPacketHandler implements IMessageHandler<NodeZapPacket, IMessage> {
 
+    @SideOnly(Side.CLIENT)
     @Override
     public IMessage onMessage(NodeZapPacket message, MessageContext ctx) {
         World world = Minecraft.getMinecraft().theWorld;
