@@ -28,7 +28,7 @@ public class AuracoreCraftingManager {
         return null;
     }
 
-    public IInfusionRecipe findMatchingInfusionRecipe(TileMagicWorkbench inv, EntityPlayer pl) {
+    public static IInfusionRecipe findMatchingInfusionRecipe(TileMagicWorkbench inv, EntityPlayer pl) {
         for (IInfusionRecipe recipe : AuracoreRecipes.getInfusionRecipes()) {
             if (recipe.matches(inv, pl.worldObj, pl)) {
                 return recipe;
