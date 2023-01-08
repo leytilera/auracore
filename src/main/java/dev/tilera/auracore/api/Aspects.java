@@ -23,6 +23,7 @@ public class Aspects {
     public static final Aspect FUNGUS = new Aspect("fungus", 16246215, new Aspect[] {Aspect.PLANT, Aspect.TREE}, new ResourceLocation("auracore", "textures/aspects/fungus.png"), 1);
 
     public static final Aspect VIS = new VirtualAspect("vis", 9896128, new ResourceLocation("thaumcraft", "textures/aspects/praecantatio.png"), 1);
+    public static final Aspect OBSCURE = new VirtualAspect("obscurus", 0x282828, new ResourceLocation("auracore", "textures/aspects/obscurus.png"), 1);
 
     public static void load() {
         if (Config.replaceAspects) {
