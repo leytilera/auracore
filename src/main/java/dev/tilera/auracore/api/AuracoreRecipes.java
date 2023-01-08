@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.tilera.auracore.api.crafting.CrucibleRecipe;
+import dev.tilera.auracore.api.crafting.IInfusionRecipe;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.tiles.TileCrucible;
@@ -11,6 +12,7 @@ import thaumcraft.common.tiles.TileCrucible;
 public class AuracoreRecipes {
     
     private static List<CrucibleRecipe> crucibleRecipes = new ArrayList<CrucibleRecipe>();
+    private static List<IInfusionRecipe> infusionRecipes = new ArrayList<IInfusionRecipe>();
 
     public static void addCrucibleRecipe(String key, ItemStack result, int cost, AspectList tags) {
         crucibleRecipes.add(new CrucibleRecipe(key, result, tags, cost));
@@ -80,6 +82,10 @@ public class AuracoreRecipes {
             tile.aspects = tags;
         }
         return output;
+    }
+
+    public static List<IInfusionRecipe> getInfusionRecipes() {
+        return infusionRecipes;
     }
 
 }

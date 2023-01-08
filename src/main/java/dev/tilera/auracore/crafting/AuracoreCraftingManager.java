@@ -2,6 +2,7 @@ package dev.tilera.auracore.crafting;
 
 import dev.tilera.auracore.api.AuracoreRecipes;
 import dev.tilera.auracore.api.crafting.CrucibleRecipe;
+import dev.tilera.auracore.api.crafting.IInfusionRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,16 @@ public class AuracoreCraftingManager {
         for (Object recipe : ThaumcraftApi.getCraftingRecipes()) {
             if (recipe instanceof IArcaneRecipe && ((IArcaneRecipe)recipe).matches(awb, player.worldObj, player)) {
                 return (IArcaneRecipe) recipe;
+            }
+        }
+
+        return null;
+    }
+
+    public IInfusionRecipe findMatchingInfusionRecipe(TileMagicWorkbench inv, EntityPlayer pl) {
+        for (IInfusionRecipe recipe : AuracoreRecipes.getInfusionRecipes()) {
+            if (recipe.matches(inv, pl.worldObj, pl)) {
+                return recipe;
             }
         }
 
