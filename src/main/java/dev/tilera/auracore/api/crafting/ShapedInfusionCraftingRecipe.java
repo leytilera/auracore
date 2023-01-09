@@ -12,6 +12,7 @@ public class ShapedInfusionCraftingRecipe implements IInfusionRecipe {
     public int recipeWidth;
     public int recipeHeight;
     public String key;
+    public String research;
     public int cost;
     public AspectList tags;
     public ItemStack[] recipeItems;
@@ -23,13 +24,14 @@ public class ShapedInfusionCraftingRecipe implements IInfusionRecipe {
         return this.key;
     }
 
-    public ShapedInfusionCraftingRecipe(String key, int par1, int par2, ItemStack[] par3ArrayOfItemStack, ItemStack par4ItemStack, int cost, AspectList tags) {
+    public ShapedInfusionCraftingRecipe(String key, String research, int par1, int par2, ItemStack[] par3ArrayOfItemStack, ItemStack par4ItemStack, int cost, AspectList tags) {
         this.recipeOutputItem = par4ItemStack.getItem();
         this.recipeWidth = par1;
         this.recipeHeight = par2;
         this.recipeItems = par3ArrayOfItemStack;
         this.recipeOutput = par4ItemStack;
         this.key = key;
+        this.research = research;
         this.cost = cost;
         this.tags = tags;
     }
@@ -41,7 +43,7 @@ public class ShapedInfusionCraftingRecipe implements IInfusionRecipe {
 
     @Override
     public boolean matches(IInventory par1InventoryCrafting, World world, EntityPlayer player) {
-        if (this.key.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getDisplayName(), this.key)) {
+        if (this.research.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getDisplayName(), this.research)) {
             return false;
         }
         for (int var2 = 0; var2 <= 3 - this.recipeWidth; ++var2) {
@@ -105,6 +107,6 @@ public class ShapedInfusionCraftingRecipe implements IInfusionRecipe {
 
     @Override
     public String getResearch() {
-        return this.key;
+        return this.research;
     }
 }

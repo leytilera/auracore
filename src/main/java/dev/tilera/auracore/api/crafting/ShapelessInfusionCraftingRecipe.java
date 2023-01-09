@@ -14,6 +14,7 @@ public class ShapelessInfusionCraftingRecipe implements IInfusionRecipe {
     private final ItemStack recipeOutput;
     public final List<ItemStack> recipeItems;
     public String key;
+    public String research;
     public int cost;
     public AspectList tags;
 
@@ -22,10 +23,11 @@ public class ShapelessInfusionCraftingRecipe implements IInfusionRecipe {
         return this.key;
     }
 
-    public ShapelessInfusionCraftingRecipe(String key, ItemStack par1ItemStack, List<ItemStack> par2List, int cost, AspectList tags) {
+    public ShapelessInfusionCraftingRecipe(String key, String research, ItemStack par1ItemStack, List<ItemStack> par2List, int cost, AspectList tags) {
         this.recipeOutput = par1ItemStack;
         this.recipeItems = par2List;
         this.key = key;
+        this.research = research;
         this.cost = cost;
         this.tags = tags;
     }
@@ -37,7 +39,7 @@ public class ShapelessInfusionCraftingRecipe implements IInfusionRecipe {
 
     @Override
     public boolean matches(IInventory par1InventoryCrafting, World world, EntityPlayer player) {
-        if (this.key.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getDisplayName(), this.key)) {
+        if (this.research.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getDisplayName(), this.research)) {
             return false;
         }
         ArrayList<ItemStack> var2 = new ArrayList<>(this.recipeItems);
@@ -86,6 +88,6 @@ public class ShapelessInfusionCraftingRecipe implements IInfusionRecipe {
 
     @Override
     public String getResearch() {
-        return this.key;
+        return this.research;
     }
 }
