@@ -93,7 +93,7 @@ public class AuracoreRecipes {
         return infusionRecipes;
     }
 
-    public static void addInfusionCraftingRecipe(String key, String research, int cost, AspectList tags, ItemStack result, Object ... ingredients) {
+    public static IInfusionRecipe addInfusionCraftingRecipe(String key, String research, int cost, AspectList tags, ItemStack result, Object ... ingredients) {
         int var9;
         String var3 = "";
         int var4 = 0;
@@ -136,10 +136,12 @@ public class AuracoreRecipes {
             char var18 = var3.charAt(var9);
             var15[var9] = var14.containsKey(Character.valueOf(var18)) ? ((ItemStack)var14.get(Character.valueOf(var18))).copy() : null;
         }
-        infusionRecipes.add(new ShapedInfusionCraftingRecipe(key, research, var5, var6, var15, result, cost, tags));
+        IInfusionRecipe rec = new ShapedInfusionCraftingRecipe(key, research, var5, var6, var15, result, cost, tags);
+        infusionRecipes.add(rec);
+        return rec;
     }
 
-    public static void addShapelessInfusionCraftingRecipe(String key, String research, int cost, AspectList tags, ItemStack result, Object ... ingredients) {
+    public static IInfusionRecipe addShapelessInfusionCraftingRecipe(String key, String research, int cost, AspectList tags, ItemStack result, Object ... ingredients) {
         ArrayList<ItemStack> var3 = new ArrayList<ItemStack>();
         Object[] var4 = ingredients;
         int var5 = ingredients.length;
@@ -158,7 +160,9 @@ public class AuracoreRecipes {
             }
             var3.add(new ItemStack((Block)var7));
         }
-        infusionRecipes.add(new ShapelessInfusionCraftingRecipe(key, research, result, var3, cost, tags));
+        IInfusionRecipe rec = new ShapelessInfusionCraftingRecipe(key, research, result, var3, cost, tags);
+        infusionRecipes.add(rec);
+        return rec;
     }
 
 }
