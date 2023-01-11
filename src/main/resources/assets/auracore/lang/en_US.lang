@@ -24,3 +24,6 @@ tc.aspect.flos=Flower, Bloom, Blossom
 tc.aspect.fungus=Mushroom, Toadstool, Fungi
 tc.aspect.vis=Vis
 tc.aspect.obscurus=Unknown
+
+auracore.research_title.infusion=Infusion Altar
+auracore.research_title.crucible=Crucible

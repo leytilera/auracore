@@ -19,12 +19,16 @@ public class AuracoreRecipes {
     private static List<CrucibleRecipe> crucibleRecipes = new ArrayList<CrucibleRecipe>();
     private static List<IInfusionRecipe> infusionRecipes = new ArrayList<IInfusionRecipe>();
 
-    public static void addCrucibleRecipe(String key, ItemStack result, int cost, AspectList tags) {
-        crucibleRecipes.add(new CrucibleRecipe(key, result, tags, cost));
+    public static CrucibleRecipe addCrucibleRecipe(String key, ItemStack result, int cost, AspectList tags) {
+        CrucibleRecipe rec = new CrucibleRecipe(key, result, tags, cost);
+        crucibleRecipes.add(rec);
+        return rec;
     }
 
-    public static void addCrucibleRecipe(String key, String recipeKey, ItemStack result, int cost, AspectList tags) {
-        crucibleRecipes.add(new CrucibleRecipe(key, recipeKey, result, tags, cost));
+    public static CrucibleRecipe addCrucibleRecipe(String key, String recipeKey, ItemStack result, int cost, AspectList tags) {
+        CrucibleRecipe rec = new CrucibleRecipe(key, recipeKey, result, tags, cost);
+        crucibleRecipes.add(rec);
+        return rec;
     }
 
     public static List<CrucibleRecipe> getCrucibleRecipes() {

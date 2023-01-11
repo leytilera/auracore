@@ -26,7 +26,8 @@
       "MixinTileArcaneWorkbenchRenderer",
       "MixinTileCrystalRenderer",
       "MixinBlockCrystalRenderer",
-      "MixinClientTickEventsFML"
+      "MixinClientTickEventsFML",
+      "MixinGuiResearchRecipe"
     ],
     "injectors": {
       "defaultRequire": 1
