@@ -1,30 +1,37 @@
 package dev.tilera.auracore.api.research;
 
+import java.lang.ref.WeakReference;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public abstract class ResearchTableExtension {
 
-    public World world;
-    public int xCoord;
-    public int yCoord;
-    public int zCoord;
+    public WeakReference<IResearchTable>  researchTable;
 
     public ResearchTableExtension(IResearchTable researchTable) {
-        this.world = researchTable.getWorld();
-        this.xCoord = researchTable.getXCoord();
-        this.yCoord = researchTable.getYCoord();
-        this.zCoord = researchTable.getZCoord();
+        this.researchTable = new WeakReference<>(researchTable);
+    }
+
+    public World getWorld() {
+        return researchTable.get().getWorld();
+    }
+
+    public int getXCoord() {
+        return researchTable.get().getXCoord();
+    }
+
+    public int getYCoord() {
+        return researchTable.get().getYCoord();
+    }
+
+    public int getZCoord() {
+        return researchTable.get().getZCoord();
     }
 
     public IResearchTable getResearchTable() {
-        TileEntity te = this.world.getTileEntity(this.xCoord, this.yCoord, this.zCoord);
-        if (te instanceof IResearchTable) {
-            return (IResearchTable) te;
-        }
-        return null;
+        return researchTable.get();
     }
 
     public abstract void writeToNBT(NBTTagCompound nbt);
