@@ -33,7 +33,7 @@ public class RenderEventHandler {
         Minecraft mc = Minecraft.getMinecraft();
         if (Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().renderViewEntity;
-            long time = mc.theWorld.getWorldTime();
+            long time = mc.theWorld.getTotalWorldTime();
             if (Utils.hasGoggles(player)) {
                 GL11.glPushMatrix();
                 GL11.glDepthMask((boolean)false);
