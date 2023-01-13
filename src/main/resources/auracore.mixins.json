@@ -12,6 +12,7 @@
       "MixinTileArcaneFurnace",
       "MixinTileJarFillable",
       "MixinTileAlembic",
+      "MixinTileResearchTable",
       "MixinBlockCustomPlant",
       "MixinBlockCustomOre",
       "MixinBlockTable",

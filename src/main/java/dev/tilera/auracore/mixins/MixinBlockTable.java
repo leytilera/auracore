@@ -4,6 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import dev.tilera.auracore.AuraCore;
+import dev.tilera.auracore.api.research.IResearchTable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,12 +49,12 @@ public abstract class MixinBlockTable extends BlockContainer {
               return true;
            } else {
               if (tileEntity instanceof TileResearchTable) {
-                 player.openGui(Thaumcraft.instance, 10, world, x, y, z);
+                 ((IResearchTable)tileEntity).openGUI(player);
               } else {
                  for(int a = 2; a < 6; ++a) {
                     TileEntity tile = world.getTileEntity(x + ForgeDirection.getOrientation(a).offsetX, y + ForgeDirection.getOrientation(a).offsetY, z + ForgeDirection.getOrientation(a).offsetZ);
-                    if (tile != null && tile instanceof TileResearchTable) {
-                       player.openGui(Thaumcraft.instance, 10, world, x + ForgeDirection.getOrientation(a).offsetX, y + ForgeDirection.getOrientation(a).offsetY, z + ForgeDirection.getOrientation(a).offsetZ);
+                    if (tile instanceof TileResearchTable) {
+                       ((IResearchTable)tile).openGUI(player);
                        break;
                     }
                  }
