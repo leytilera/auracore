@@ -17,22 +17,22 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 @Mixin(ThaumcraftCraftingManager.class)
 public abstract class MixinThaumcraftCraftingManager {
 
-    @Invoker("generateTagsFromCrucibleRecipes")
+    @Invoker(value = "generateTagsFromCrucibleRecipes", remap = false)
     public static AspectList invokeGenerateTagsFromCrucibleRecipes(Item item, int meta, ArrayList<List> history) {
         throw new RuntimeException();
     }
     
-    @Invoker("generateTagsFromArcaneRecipes")
+    @Invoker(value = "generateTagsFromArcaneRecipes", remap = false)
     public static AspectList invokeGenerateTagsFromArcaneRecipes(Item item, int meta, ArrayList<List> history) {
         throw new RuntimeException();
     }
 
-    @Invoker("generateTagsFromInfusionRecipes")
+    @Invoker(value = "generateTagsFromInfusionRecipes", remap = false)
     public static AspectList invokeGenerateTagsFromInfusionRecipes(Item item, int meta, ArrayList<List> history) {
         throw new RuntimeException();
     }
 
-    @Invoker("generateTagsFromCraftingRecipes")
+    @Invoker(value = "generateTagsFromCraftingRecipes", remap = false)
     public static AspectList invokeGenerateTagsFromCraftingRecipes(Item item, int meta, ArrayList<List> history) {
         throw new RuntimeException();
     }
