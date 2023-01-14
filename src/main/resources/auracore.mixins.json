@@ -20,7 +20,8 @@
       "MixinEventHandlerEntity",
       "MixinThaumcraftWorldGenerator",
       "MixinPlayerKnowledge",
-      "MixinConfigAspects"
+      "MixinConfigAspects",
+      "MixinThaumcraftCraftingManager"
     ],
     "client": [
       "MixinBlockCustomOreRenderer",

@@ -41,7 +41,13 @@ public class AuracoreCraftingManager {
     public static int getArcaneRecipeVisCost(IArcaneRecipe recipe, TileMagicWorkbench awb) {
         if (recipe == null) return 0;
         int sum = 0;
-        AspectList aspects = recipe.getAspects(awb);
+        AspectList aspects = recipe.getAspects();
+        if (awb != null) {
+            aspects = recipe.getAspects(awb);
+        }
+        if (aspects == null) {
+            aspects = new AspectList();
+        }
         for (Aspect aspect : aspects.getAspects()) {
             if (aspect != null) sum += aspects.getAmount(aspect);
         }
