@@ -46,40 +46,47 @@ public abstract class MixinThaumcraftCraftingManager {
         AspectList ret = null;
         ret = AspectCalculation.generateTagsFromCrucibleRecipes(item, meta, history);
         if (ret != null) {
-           return ret;
+            return ret;
         }
         ret = invokeGenerateTagsFromCrucibleRecipes(item, meta, history);
         if (ret != null) {
-           return ret;
+            removeVis(ret);
+            return ret;
         }
         ret = AspectCalculation.generateTagsFromArcaneRecipes(item, meta, history);
         if (ret != null) {
-              return ret;
+            return ret;
         }
         ret = invokeGenerateTagsFromArcaneRecipes(item, meta, history);
         if (ret != null) {
-              return ret;
+            removeVis(ret);
+            return ret;
         }
         ret = AspectCalculation.generateTagsFromInfusionRecipes(item, meta, history);
         if (ret != null) {
-              return ret;
+            return ret;
         }
         ret = invokeGenerateTagsFromInfusionRecipes(item, meta, history);
         if (ret != null) {
+            removeVis(ret);
             return ret;
         } 
         ret = invokeGenerateTagsFromCraftingRecipes(item, meta, history);
 
         if (ret != null) {
-            int vis = ret.getAmount(Aspects.VIS);
-            if (vis > 0) {
-                ret.remove(Aspects.VIS);
-                int magic = Math.round((float)vis / 10.0f);
-                ret.add(Aspect.MAGIC, magic);
-            }
+            removeVis(ret);
         }
 
         return ret;
+     }
+
+     private static void removeVis(AspectList aspects) {
+        int vis = aspects.getAmount(Aspects.VIS);
+        if (vis > 0) {
+            aspects.remove(Aspects.VIS);
+            int magic = Math.round((float)vis / 10.0f);
+            aspects.add(Aspect.MAGIC, magic);
+        }
      }
 
 }
