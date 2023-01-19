@@ -33,7 +33,7 @@ public class AspectCalculation {
             int idR = recipe.getRecipeOutput().getItemDamage() < 0 ? 0 : recipe.getRecipeOutput().getItemDamage();
             int n = idS = meta < 0 ? 0 : meta;
             if (recipe.getRecipeOutput().getItem() != item || idR != idS) continue;
-            HashMap<List<Integer>, ItemStack> ingredients = new HashMap<List<Integer>, ItemStack>();
+            HashMap<ItemSignature, ItemStack> ingredients = new HashMap<>();
             AspectList ph = new AspectList();
             int cval = 0;
             try {
@@ -45,13 +45,13 @@ public class AspectCalculation {
                         for (int j = 0; j < height && j < 3; ++j) {
                             if (items[i + j * width] == null) continue;
                             items[i + j * width].stackSize = 1;
-                            if (ingredients.containsKey(Arrays.asList(Item.getIdFromItem(items[i + j * width].getItem()), items[i + j * width].getItemDamage()))) {
-                                ItemStack is = (ItemStack)ingredients.get(Arrays.asList(items[i + j * width].getItem(), items[i + j * width].getItemDamage()));
+                            if (ingredients.containsKey(new ItemSignature(items[i + j * width]))) {
+                                ItemStack is = (ItemStack)ingredients.get(new ItemSignature(items[i + j * width]));
                                 ++is.stackSize;
-                                ingredients.put(Arrays.asList(Item.getIdFromItem(items[i + j * width].getItem()), items[i + j * width].getItemDamage()), is);
+                                ingredients.put(new ItemSignature(items[i + j * width]), is);
                                 continue;
                             }
-                            ingredients.put(Arrays.asList(Item.getIdFromItem(items[i + j * width].getItem()), items[i + j * width].getItemDamage()), items[i + j * width]);
+                            ingredients.put(new ItemSignature(items[i + j * width]), items[i + j * width]);
                         }
                     }
                 } else {
@@ -59,13 +59,13 @@ public class AspectCalculation {
                     for (int i = 0; i < items.size() && i < 9; ++i) {
                         if (items.get(i) == null) continue;
                         ((ItemStack)items.get((int)i)).stackSize = 1;
-                        if (ingredients.containsKey(Arrays.asList(((ItemStack)items.get((int)i)).getItem(), ((ItemStack)items.get(i)).getItemDamage()))) {
-                            ItemStack is = (ItemStack)ingredients.get(Arrays.asList(Item.getIdFromItem(((ItemStack)items.get((int)i)).getItem()), ((ItemStack)items.get(i)).getItemDamage()));
+                        if (ingredients.containsKey(new ItemSignature(items.get((int)i)))) {
+                            ItemStack is = (ItemStack)ingredients.get(new ItemSignature(items.get((int)i)));
                             ++is.stackSize;
-                            ingredients.put(Arrays.asList(Item.getIdFromItem(((ItemStack)items.get((int)i)).getItem()), ((ItemStack)items.get(i)).getItemDamage()), is);
+                            ingredients.put(new ItemSignature(items.get((int)i)), is);
                             continue;
                         }
-                        ingredients.put(Arrays.asList(Item.getIdFromItem(((ItemStack)items.get((int)i)).getItem()), ((ItemStack)items.get(i)).getItemDamage()), items.get(i));
+                        ingredients.put(new ItemSignature(items.get((int)i)), items.get(i));
                     }
                 }
                 Collection<ItemStack> ings = ingredients.values();
@@ -127,39 +127,62 @@ public class AspectCalculation {
             int idR = recipe.getRecipeOutput().getItemDamage() < 0 ? 0 : recipe.getRecipeOutput().getItemDamage();
             int n = idS = meta < 0 ? 0 : meta;
             if (recipe.getRecipeOutput().getItem() != item || idR != idS) continue;
-            HashMap<List<Integer>, ItemStack> ingredients = new HashMap<List<Integer>, ItemStack>();
+            HashMap<ItemSignature, ItemStack> ingredients = new HashMap<>();
             AspectList ph = new AspectList();
             int cval = 0;
             try {
                 if (recipe instanceof ShapedArcaneRecipe) {
                     int width = ((ShapedArcaneRecipe)recipe).width;
                     int height = ((ShapedArcaneRecipe)recipe).width;
-                    ItemStack[] items = (ItemStack[]) ((ShapedArcaneRecipe)recipe).input;
+                    Object[] items = ((ShapedArcaneRecipe)recipe).input;
                     for (int i = 0; i < width && i < 3; ++i) {
                         for (int j = 0; j < height && j < 3; ++j) {
                             if (items[i + j * width] == null) continue;
-                            items[i + j * width].stackSize = 1;
-                            if (ingredients.containsKey(Arrays.asList(Item.getIdFromItem(items[i + j * width].getItem()), items[i + j * width].getItemDamage()))) {
-                                ItemStack is = (ItemStack)ingredients.get(Arrays.asList(Item.getIdFromItem(items[i + j * width].getItem()), items[i + j * width].getItemDamage()));
-                                ++is.stackSize;
-                                ingredients.put(Arrays.asList(Item.getIdFromItem(items[i + j * width].getItem()), items[i + j * width].getItemDamage()), is);
-                                continue;
+                            ItemStack stack = null;
+                            if (items[i + j * width] instanceof ItemStack) {
+                                stack = (ItemStack) items[i + j * width];
+                                
+                            } else if (items[i + j * width] instanceof ArrayList) {
+                                ArrayList<ItemStack> l = (ArrayList<ItemStack>) items[i + j * width];
+                                if (l.size() > 0) {
+                                    stack = l.get(0);
+                                }
                             }
-                            ingredients.put(Arrays.asList(Item.getIdFromItem(items[i + j * width].getItem()), items[i + j * width].getItemDamage()), items[i + j * width]);
+                            if (stack != null) {
+                                stack.stackSize = 1;
+                                if (ingredients.containsKey(new ItemSignature(stack))) {
+                                    ItemStack is = (ItemStack)ingredients.get(new ItemSignature(stack));
+                                    ++is.stackSize;
+                                    ingredients.put(new ItemSignature(stack), is);
+                                    continue;
+                                }
+                                ingredients.put(new ItemSignature(stack), stack);
+                            }
                         }
                     }
                 } else {
-                    List<ItemStack> items = ((ShapelessArcaneRecipe)recipe).getInput();
+                    List<Object> items = ((ShapelessArcaneRecipe)recipe).getInput();
                     for (int i = 0; i < items.size() && i < 9; ++i) {
                         if (items.get(i) == null) continue;
-                        ((ItemStack)items.get((int)i)).stackSize = 1;
-                        if (ingredients.containsKey(Arrays.asList(Item.getIdFromItem(((ItemStack)items.get((int)i)).getItem()), ((ItemStack)items.get(i)).getItemDamage()))) {
-                            ItemStack is = (ItemStack)ingredients.get(Arrays.asList(Item.getIdFromItem(((ItemStack)items.get((int)i)).getItem()), ((ItemStack)items.get(i)).getItemDamage()));
-                            ++is.stackSize;
-                            ingredients.put(Arrays.asList(Item.getIdFromItem(((ItemStack)items.get((int)i)).getItem()), ((ItemStack)items.get(i)).getItemDamage()), is);
-                            continue;
+                        ItemStack stack = null;
+                        if (items.get(i) instanceof ItemStack) {
+                            stack = (ItemStack) items.get(i);
+                        } else if (items.get(i) instanceof ArrayList) {
+                            ArrayList<ItemStack> l = (ArrayList<ItemStack>) items.get(i);
+                            if (l.size() > 0){
+                                stack = l.get(0);
+                            }
                         }
-                        ingredients.put(Arrays.asList(Item.getIdFromItem(((ItemStack)items.get((int)i)).getItem()), ((ItemStack)items.get(i)).getItemDamage()), items.get(i));
+                        if (stack != null) {
+                            stack.stackSize = 1;
+                            if (ingredients.containsKey(new ItemSignature(stack))) {
+                                ItemStack is = (ItemStack)ingredients.get(new ItemSignature(stack));
+                                ++is.stackSize;
+                                ingredients.put(new ItemSignature(stack), is);
+                                continue;
+                            }
+                            ingredients.put(new ItemSignature(stack), stack);
+                        }
                     }
                 }
                 Collection<ItemStack> ings = ingredients.values();
@@ -189,6 +212,46 @@ public class AspectCalculation {
             }
         }
         return ret;
+    }
+
+    public static class ItemSignature {
+
+        Item item;
+        int metadata;
+
+        public ItemSignature(ItemStack stack) {
+            this.item = stack.getItem();
+            this.metadata = stack.getItemDamage();
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((item == null) ? 0 : item.hashCode());
+            result = prime * result + metadata;
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            ItemSignature other = (ItemSignature) obj;
+            if (item == null) {
+                if (other.item != null)
+                    return false;
+            } else if (!item.equals(other.item))
+                return false;
+            if (metadata != other.metadata)
+                return false;
+            return true;
+        }
+
     }
 
 }
