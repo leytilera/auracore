@@ -5,11 +5,14 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import dev.tilera.auracore.api.research.IResearchTable;
 import dev.tilera.auracore.api.research.ResearchTableExtension;
 import dev.tilera.auracore.api.research.ResearchTableExtensionRegistry;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -132,4 +135,53 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
         }
     }
     
+    @Inject(method = "getSizeInventory", at = @At("HEAD"), remap = false)
+    public void onGetInventorySize(CallbackInfoReturnable<Integer> ci) {
+        if (extension instanceof IInventory) {
+            IInventory ext = (IInventory) extension;
+            ci.setReturnValue(2 + ext.getSizeInventory());
+        }
+    }
+
+    @Inject(method = "getStackInSlot", at = @At("HEAD"), remap = false)
+    public void onGetStackInSlot(int slot, CallbackInfoReturnable<ItemStack> ci) {
+        if (extension instanceof IInventory && slot >= 2) {
+            IInventory ext = (IInventory) extension;
+            ci.setReturnValue(ext.getStackInSlot(slot - 2));
+        }
+    }
+
+    @Inject(method = "getStackInSlotOnClosing", at = @At("HEAD"), remap = false)
+    public void onGetStackInSlotOnClosing(int slot, CallbackInfoReturnable<ItemStack> ci) {
+        if (extension instanceof IInventory && slot >= 2) {
+            IInventory ext = (IInventory) extension;
+            ci.setReturnValue(ext.getStackInSlotOnClosing(slot - 2));
+        }
+    }
+
+    @Inject(method = "decrStackSize", at = @At("HEAD"), remap = false)
+    public void onDecrStackSize(int slot, int amt, CallbackInfoReturnable<ItemStack> ci) {
+        if (extension instanceof IInventory && slot >= 2) {
+            IInventory ext = (IInventory) extension;
+            ci.setReturnValue(ext.decrStackSize(slot - 2, amt));
+        }
+    }
+
+    @Inject(method = "setInventorySlotContents", at = @At("HEAD"), remap = false)
+    public void onSetSlotContents(int slot, ItemStack stack, CallbackInfo ci) {
+        if (extension instanceof IInventory && slot >= 2) {
+            IInventory ext = (IInventory) extension;
+            ext.setInventorySlotContents(slot - 2, stack);
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "isItemValidForSlot", at = @At("HEAD"), remap = false)
+    public void onIsItemValid(int slot, ItemStack stack, CallbackInfoReturnable<Boolean> ci) {
+        if (extension instanceof IInventory) {
+            IInventory ext = (IInventory) extension;
+            ci.setReturnValue(ext.isItemValidForSlot(slot - 2, stack));
+        }
+    }
+
 }
