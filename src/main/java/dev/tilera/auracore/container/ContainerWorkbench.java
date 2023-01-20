@@ -27,7 +27,7 @@ public class ContainerWorkbench extends Container {
         this.tileEntity.eventHandler = this;
         this.ip = par1InventoryPlayer;
         this.addSlotToContainer((Slot)new SlotCraftingArcaneWorkbench(par1InventoryPlayer.player, this.tileEntity, this.tileEntity, 9, 124, 29));
-        this.addSlotToContainer(new SlotWorkbenchWand(this.tileEntity, 10, 124, 61));
+        this.addSlotToContainer(new SlotWorkbenchWand(this.tileEntity, 10, 124, 61, par1InventoryPlayer.player));
         for (var6 = 0; var6 < 3; ++var6) {
             for (var7 = 0; var7 < 3; ++var7) {
                 this.addSlotToContainer(new Slot(this.tileEntity, var7 + var6 * 3, 30 + var7 * 18, 17 + var6 * 18));

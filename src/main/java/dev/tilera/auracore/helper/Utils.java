@@ -124,6 +124,7 @@ public class Utils {
     }
 
     public static boolean spendCharge(final ItemStack itemstack, final EntityPlayer player, int amount) {
+        if (itemstack == null) return false;
         final int discount = 100 - Math.min(50, getTotalVisDiscount(player));
         amount = Math.round(amount * (discount / 100.0f));
         return ((IWand) itemstack.getItem()).consumeVis(itemstack, amount);
