@@ -135,7 +135,7 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
         }
     }
     
-    @Inject(method = "getSizeInventory", at = @At("HEAD"), remap = false)
+    @Inject(method = "getSizeInventory", at = @At("HEAD"), remap = false, cancellable = true)
     public void onGetInventorySize(CallbackInfoReturnable<Integer> ci) {
         if (extension instanceof IInventory) {
             IInventory ext = (IInventory) extension;
@@ -143,7 +143,7 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
         }
     }
 
-    @Inject(method = "getStackInSlot", at = @At("HEAD"), remap = false)
+    @Inject(method = "getStackInSlot", at = @At("HEAD"), remap = false, cancellable = true)
     public void onGetStackInSlot(int slot, CallbackInfoReturnable<ItemStack> ci) {
         if (extension instanceof IInventory && slot >= 2) {
             IInventory ext = (IInventory) extension;
@@ -151,7 +151,7 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
         }
     }
 
-    @Inject(method = "getStackInSlotOnClosing", at = @At("HEAD"), remap = false)
+    @Inject(method = "getStackInSlotOnClosing", at = @At("HEAD"), remap = false, cancellable = true)
     public void onGetStackInSlotOnClosing(int slot, CallbackInfoReturnable<ItemStack> ci) {
         if (extension instanceof IInventory && slot >= 2) {
             IInventory ext = (IInventory) extension;
@@ -159,7 +159,7 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
         }
     }
 
-    @Inject(method = "decrStackSize", at = @At("HEAD"), remap = false)
+    @Inject(method = "decrStackSize", at = @At("HEAD"), remap = false, cancellable = true)
     public void onDecrStackSize(int slot, int amt, CallbackInfoReturnable<ItemStack> ci) {
         if (extension instanceof IInventory && slot >= 2) {
             IInventory ext = (IInventory) extension;
@@ -167,7 +167,7 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
         }
     }
 
-    @Inject(method = "setInventorySlotContents", at = @At("HEAD"), remap = false)
+    @Inject(method = "setInventorySlotContents", at = @At("HEAD"), remap = false, cancellable = true)
     public void onSetSlotContents(int slot, ItemStack stack, CallbackInfo ci) {
         if (extension instanceof IInventory && slot >= 2) {
             IInventory ext = (IInventory) extension;
@@ -176,7 +176,7 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
         }
     }
 
-    @Inject(method = "isItemValidForSlot", at = @At("HEAD"), remap = false)
+    @Inject(method = "isItemValidForSlot", at = @At("HEAD"), remap = false, cancellable = true)
     public void onIsItemValid(int slot, ItemStack stack, CallbackInfoReturnable<Boolean> ci) {
         if (extension instanceof IInventory) {
             IInventory ext = (IInventory) extension;
