@@ -16,6 +16,7 @@ public class Config {
     public static boolean replaceAspects = true;
     public static boolean legacyAspects = false;
     public static boolean generateEldritchRing = true;
+    public static boolean legacyCrucibleMechanics = true;
 
     public static boolean noScanning() {
         return knowAllAspects;
@@ -31,6 +32,7 @@ public class Config {
         replaceAspects = config.getBoolean("replaceAspects", "client", replaceAspects, "Replace some aspect textures");
         legacyAspects = config.getBoolean("legacyAspects", "aspects", legacyAspects, "Use TC3 item aspects");
         generateEldritchRing = config.getBoolean("generateEldritchRing", "worldgen", generateEldritchRing, "Generate Eldritch Ring structures");
+        legacyCrucibleMechanics = config.getBoolean("legacyCrucibleMechanics", "crucible", legacyCrucibleMechanics, "Use TC3 crucible mechanics");
         config.save();
     }
 

@@ -4,6 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
+import dev.tilera.auracore.Config;
 import dev.tilera.auracore.api.IAlembic;
 import dev.tilera.auracore.aura.AuraManager;
 import net.minecraft.block.Block;
@@ -38,6 +39,8 @@ public abstract class MixinTileCrucible extends TileThaumcraft implements IAspec
     public abstract void getBellows();
     @Shadow(remap = false)
     public abstract int tagAmount();
+    @Shadow(remap = false)
+    public abstract void spill();
     @Shadow(remap = false)
     abstract void drawEffects();
 
@@ -91,8 +94,13 @@ public abstract class MixinTileCrucible extends TileThaumcraft implements IAspec
                     }
                 }
             }
-            AuraManager.addFluxToClosest(this.worldObj, (float) this.xCoord + 0.5f, (float) this.yCoord + 0.5f,
-                    (float) this.zCoord + 0.5f, this.aspects);
+            if (Config.legacyCrucibleMechanics) {
+                AuraManager.addFluxToClosest(this.worldObj, (float) this.xCoord + 0.5f, (float) this.yCoord + 0.5f, (float) this.zCoord + 0.5f, this.aspects);
+            } else {
+                for(int a = 0; a < this.aspects.visSize() / 2; ++a) {
+                    this.spill();
+                }
+            }
 
             this.aspects = new AspectList();
             this.markDirty();
@@ -143,13 +151,45 @@ public abstract class MixinTileCrucible extends TileThaumcraft implements IAspec
                  }
               }
            }
-  
-           if (this.tagAmount() > 500 && this.counter % 5L == 0L) {
-              AspectList tt = this.takeRandomFromSource();
-              AuraManager.addFluxToClosest(this.worldObj, this.xCoord, this.yCoord, this.zCoord, tt);
-              if (this.tagAmount() <= 500) {
-                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-              }
+           if (Config.legacyCrucibleMechanics) {
+                if (this.tagAmount() > 500 && this.counter % 5L == 0L) {
+                    AspectList tt = this.takeRandomFromSource();
+                    AuraManager.addFluxToClosest(this.worldObj, this.xCoord, this.yCoord, this.zCoord, tt);
+                    if (this.tagAmount() <= 500) {
+                        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+                    }
+                }
+           } else {
+                if (this.tagAmount() > 100 && this.counter % 5L == 0L) {
+                    this.takeRandomFromSource();
+                    this.spill();
+                }
+    
+                if (this.counter > 100L && this.heat > 150) {
+                    this.counter = 0L;
+                    if (this.tagAmount() > 0) {
+                        int s = this.aspects.getAspects().length;
+                        Aspect a = this.aspects.getAspects()[super.worldObj.rand.nextInt(s)];
+                        if (a.isPrimal()) {
+                            a = this.aspects.getAspects()[super.worldObj.rand.nextInt(s)];
+                        }
+    
+                    this.tank.drain(2, true);
+                    this.aspects.remove(a, 1);
+                    if (!a.isPrimal()) {
+                        if (super.worldObj.rand.nextBoolean()) {
+                            this.aspects.add(a.getComponents()[0], 1);
+                        } else {
+                            this.aspects.add(a.getComponents()[1], 1);
+                        }
+                    } else {
+                        this.spill();
+                    }
+                }
+    
+                this.markDirty();
+                super.worldObj.markBlockForUpdate(super.xCoord, super.yCoord, super.zCoord);
+             }
            }
         } else if (this.tank.getFluidAmount() > 0) {
            this.drawEffects();
