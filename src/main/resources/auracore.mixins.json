@@ -13,6 +13,7 @@
       "MixinTileJarFillable",
       "MixinTileAlembic",
       "MixinTileResearchTable",
+      "MixinTileNode",
       "MixinBlockCustomPlant",
       "MixinBlockCustomOre",
       "MixinBlockTable",

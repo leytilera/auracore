@@ -33,6 +33,7 @@ public class AuraManagerClient {
         public boolean lock;
         public byte type;
         public int dimension;
+        public boolean isVirtual;
 
         public NodeStats(AuraPacket packet, int dimension) {
             key = packet.key;
@@ -46,6 +47,7 @@ public class AuraManagerClient {
             lock = packet.lock;
             type = packet.type;
             this.dimension = dimension;
+            this.isVirtual = packet.virtual;
         }
 
     }

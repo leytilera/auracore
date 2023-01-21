@@ -18,8 +18,11 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
+import thaumcraft.common.lib.world.WorldGenEldritchRing;
 import thaumcraft.common.lib.world.WorldGenHilltopStones;
 import thaumcraft.common.lib.world.WorldGenMound;
+import thaumcraft.common.lib.world.dim.MazeThread;
 
 public class WorldGenerator implements IWorldGenerator {
 
@@ -64,6 +67,21 @@ public class WorldGenerator implements IWorldGenerator {
                     auraGen = true;
                     int value = random.nextInt(200) + 400;
                     AuraManager.registerAuraNode(world, (short)value, EnumNodeType.DARK, world.provider.dimensionId, randPosX2 + 9, randPosY + 8, randPosZ2 + 9);
+                }
+            } else if (Config.generateEldritchRing && random.nextInt(66) == 0) {
+                WorldGenEldritchRing stonering = new WorldGenEldritchRing();
+                randPosY += 8;
+                int w = 11 + random.nextInt(6) * 2;
+                int h = 11 + random.nextInt(6) * 2;
+                stonering.chunkX = chunkX;
+                stonering.chunkZ = chunkZ;
+                stonering.width = w;
+                stonering.height = h;
+                if (stonering.generate(world, random, randPosX2, randPosY, randPosZ2)) {
+                    auraGen = true;
+                    ThaumcraftWorldGenerator.createRandomNodeAt(world, randPosX2, randPosY + 2, randPosZ2, random, false, true, false);
+                    Thread t = new Thread(new MazeThread(chunkX, chunkZ, w, h, random.nextLong()));
+                    t.start();
                 }
             } else {
                 WorldGenHilltopStones hilltopStones = new WorldGenHilltopStones();
@@ -162,7 +180,11 @@ public class WorldGenerator implements IWorldGenerator {
                     }
                 }
             }
-            AuraManager.registerAuraNode(world, (short)value, type, world.provider.dimensionId, x, y, z);
+            if (Config.newNodeRarity > 0 && random.nextInt(Config.newNodeRarity) == 0) {
+                ThaumcraftWorldGenerator.createRandomNodeAt(world, x, y, z, random, false, false, false);
+            } else {
+                AuraManager.registerAuraNode(world, (short)value, type, world.provider.dimensionId, x, y, z);
+            }
             return true;
         }
         return false;

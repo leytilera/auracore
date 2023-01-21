@@ -79,6 +79,8 @@ public class AuraCore {
         ConfigBlocks.blockCrystal.setTickRandomly(true);
         Recipes.initRecipes();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+        thaumcraft.common.config.Config.genStructure = false;
+        thaumcraft.common.config.Config.genAura = false;
     }
 
     @Mod.EventHandler

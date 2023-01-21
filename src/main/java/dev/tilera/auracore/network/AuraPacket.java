@@ -16,6 +16,7 @@ public class AuraPacket implements IMessage {
     public int flux;
     public boolean lock;
     public byte type;
+    public boolean virtual;
 
     public AuraPacket() {}
 
@@ -30,6 +31,7 @@ public class AuraPacket implements IMessage {
         this.flux = node.flux.visSize();
         this.lock = node.locked;
         this.type = (byte) node.type.ordinal();
+        this.virtual = node.isVirtual;
     }
 
     @Override
@@ -44,6 +46,7 @@ public class AuraPacket implements IMessage {
        this.flux = buf.readInt();
        this.lock = buf.readBoolean();
        this.type = buf.readByte(); 
+       this.virtual = buf.readBoolean();
     }
 
     @Override
@@ -58,6 +61,7 @@ public class AuraPacket implements IMessage {
         buf.writeInt(flux);
         buf.writeBoolean(lock);
         buf.writeByte(type);
+        buf.writeBoolean(virtual);
     }
     
 }

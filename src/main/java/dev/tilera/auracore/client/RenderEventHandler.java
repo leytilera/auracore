@@ -56,6 +56,7 @@ public class RenderEventHandler {
         int limit = 0;
         Collection<NodeStats> col = AuraManagerClient.auraClientList.values();
         for (NodeStats l : col) {
+            if (l.isVirtual) continue;
             float px = (float) l.x;
             float py = (float) l.y;
             float pz = (float) l.z;
