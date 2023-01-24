@@ -301,6 +301,47 @@ public class LegacyAspects {
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigBlocks.blockCustomOre, 1, 4), (new AspectList()).add(Aspect.EARTH, 1).add(Aspect.EARTH, 3).add(Aspect.CRYSTAL, 2));
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigBlocks.blockCustomOre, 1, 5), (new AspectList()).add(Aspect.EARTH, 1).add(Aspect.ORDER, 3).add(Aspect.CRYSTAL, 2));
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigBlocks.blockCustomOre, 1, 6), (new AspectList()).add(Aspect.EARTH, 1).add(Aspect.ENTROPY, 3).add(Aspect.CRYSTAL, 2));
+        // Oredict
+        ThaumcraftApi.registerObjectTag("nuggetIron", new AspectList().add(Aspect.METAL, 1));
+        ThaumcraftApi.registerObjectTag("nuggetTin", new AspectList().add(Aspect.METAL, 1));
+        ThaumcraftApi.registerObjectTag("nuggetCopper", new AspectList().add(Aspect.METAL, 1));
+        ThaumcraftApi.registerObjectTag("nuggetSilver", new AspectList().add(Aspect.METAL, 1));
+        ThaumcraftApi.registerObjectTag("nuggetLead", new AspectList().add(Aspect.METAL, 1));
+
+        ThaumcraftApi.registerObjectTag("dustIron", new AspectList().add(Aspect.METAL, 7).add(Aspects.DESTRUCTION, 1));
+        ThaumcraftApi.registerObjectTag("dustGold", new AspectList().add(Aspect.METAL, 7).add(Aspects.VALUABLE, 4).add(Aspects.DESTRUCTION, 1));
+        ThaumcraftApi.registerObjectTag("dustCopper", new AspectList().add(Aspect.METAL, 5).add(Aspect.LIFE, 2).add(Aspects.DESTRUCTION, 1));
+        ThaumcraftApi.registerObjectTag("dustTin", new AspectList().add(Aspect.METAL, 5).add(Aspect.CRYSTAL, 2).add(Aspects.DESTRUCTION, 1));
+        ThaumcraftApi.registerObjectTag("dustSilver", new AspectList().add(Aspect.METAL, 5).add(Aspect.EXCHANGE, 2).add(Aspects.DESTRUCTION, 1));
+        ThaumcraftApi.registerObjectTag("dustBrass", new AspectList().add(Aspect.METAL, 5).add(Aspects.CONTROL, 1).add(Aspect.EXCHANGE, 1).add(Aspects.DESTRUCTION, 1));
+        ThaumcraftApi.registerObjectTag("dustBronze", new AspectList().add(Aspect.METAL, 5).add(Aspects.CONTROL, 1).add(Aspect.EXCHANGE, 1).add(Aspects.DESTRUCTION, 1));
+        ThaumcraftApi.registerObjectTag("dustLead", new AspectList().add(Aspect.METAL, 5).add(Aspect.VOID, 2).add(Aspects.DESTRUCTION, 1));
+
+        ThaumcraftApi.registerObjectTag("ingotCopper", new AspectList().add(Aspect.METAL, 6).add(Aspect.LIFE, 2));
+        ThaumcraftApi.registerObjectTag("ingotTin", new AspectList().add(Aspect.METAL, 6).add(Aspect.CRYSTAL, 2));
+        ThaumcraftApi.registerObjectTag("ingotSilver", new AspectList().add(Aspect.METAL, 6).add(Aspect.EXCHANGE, 2));
+        ThaumcraftApi.registerObjectTag("ingotLead", new AspectList().add(Aspect.METAL, 6).add(Aspect.VOID, 2));
+        ThaumcraftApi.registerObjectTag("ingotBrass", new AspectList().add(Aspect.METAL, 6).add(Aspects.CONTROL, 1).add(Aspect.EXCHANGE, 1));
+        ThaumcraftApi.registerObjectTag("ingotBronze", new AspectList().add(Aspect.METAL, 6).add(Aspects.CONTROL, 1).add(Aspect.EXCHANGE, 1));
+        ThaumcraftApi.registerObjectTag("ingotRefinedIron", new AspectList().add(Aspect.METAL, 7).add(Aspects.PURE, 1));
+        ThaumcraftApi.registerObjectTag("ingotSteel", new AspectList().add(Aspect.METAL, 7).add(Aspect.CRAFT, 1));
+        ThaumcraftApi.registerObjectTag("ingotUranium", new AspectList().add(Aspect.METAL, 6).add(Aspect.POISON, 4).add(Aspect.ENERGY, 6));
+
+        ThaumcraftApi.registerObjectTag("oreUranium", new AspectList().add(Aspect.METAL, 6).add(Aspect.POISON, 4).add(Aspect.ENERGY, 6));
+        ThaumcraftApi.registerObjectTag("oreCopper", new AspectList().add(Aspect.METAL, 5).add(Aspect.EXCHANGE, 1).add(Aspects.ROCK, 2));
+        ThaumcraftApi.registerObjectTag("oreTin", new AspectList().add(Aspect.METAL, 5).add(Aspects.CONTROL, 1).add(Aspects.ROCK, 2));
+        ThaumcraftApi.registerObjectTag("oreSilver", new AspectList().add(Aspect.METAL, 5).add(Aspect.EXCHANGE, 1).add(Aspects.ROCK, 2));
+
+        ThaumcraftApi.registerObjectTag("dustNikolite", new AspectList().add(Aspect.ENERGY, 2).add(Aspect.MECHANISM, 2));
+        ThaumcraftApi.registerObjectTag("dustSulfur", new AspectList().add(Aspect.LIFE, 2).add(Aspect.FIRE, 1));
+
+        ThaumcraftApi.registerObjectTag("gemRuby", new AspectList().add(Aspect.CRYSTAL, 8).add(Aspects.VALUABLE, 4));
+        ThaumcraftApi.registerObjectTag("gemGreenSapphire", new AspectList().add(Aspect.CRYSTAL, 8).add(Aspects.VALUABLE, 4));
+        ThaumcraftApi.registerObjectTag("gemSapphire", new AspectList().add(Aspect.CRYSTAL, 8).add(Aspects.VALUABLE, 4));
+
+        ThaumcraftApi.registerObjectTag("woodRubber", new AspectList().add(Aspect.TREE, 6).add(Aspect.MOTION, 1).add(Aspect.TOOL, 1));
+        ThaumcraftApi.registerObjectTag("itemRubber", new AspectList().add(Aspect.MOTION, 2).add(Aspects.CONTROL, 2));
+        ThaumcraftApi.registerObjectTag("dropUranium", new AspectList().add(Aspect.METAL, 6).add(Aspect.POISON, 4).add(Aspect.ENERGY, 6));
     }
 
 }
