@@ -9,5 +9,10 @@ public class ResearchPageCrucible extends ResearchPage {
         super("auracore.research_title.crucible");
         this.recipe = recipe;
     }
+
+    public ResearchPageCrucible(CrucibleRecipe[] recipes) {
+        super("auracore.research_title.crucible");
+        this.recipe = recipes;
+    }
     
 }

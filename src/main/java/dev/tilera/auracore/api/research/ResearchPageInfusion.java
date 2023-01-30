@@ -9,5 +9,10 @@ public class ResearchPageInfusion extends ResearchPage {
         super("auracore.research_title.infusion");
         this.recipe = recipe;
     }
+
+    public ResearchPageInfusion(IInfusionRecipe[] recipes) {
+        super("auracore.research_title.infusion");
+        this.recipe = recipes;
+    }
     
 }
