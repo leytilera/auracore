@@ -24,21 +24,7 @@ apply from: './gradle/scripts/mixins.gradle'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-def getVersionName = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags'
-        standardOutput = stdout
-    }
-    String tagVersion = stdout.toString().trim()
-    if (tagVersion.charAt(0) == 'v') {
-        return tagVersion.substring(1);
-    } else {
-        return tagVersion;
-    }
-}
-
-version = getVersionName()
+version = "1.8.4"
 group= "dev.tilera"
 archivesBaseName = "auracore"
 
