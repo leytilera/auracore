@@ -70,7 +70,7 @@ public abstract class MixinTileResearchTable extends TileThaumcraft implements I
     @Inject(method = "markDirty", at = @At("TAIL"))
     public void onMarkDirty(CallbackInfo ci) {
         if (extension != null) {
-            extension.markDirty();
+            extension.extMarkDirty();
         }
     }
 
