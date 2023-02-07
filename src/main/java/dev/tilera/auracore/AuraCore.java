@@ -76,6 +76,7 @@ public class AuraCore {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ev) {
+        proxy.init();
         ConfigBlocks.blockCrystal.setTickRandomly(true);
         Recipes.initRecipes();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);

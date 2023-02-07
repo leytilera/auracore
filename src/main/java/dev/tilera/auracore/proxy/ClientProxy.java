@@ -1,6 +1,7 @@
 package dev.tilera.auracore.proxy;
 
 import dev.tilera.auracore.client.gui.GuiArcaneWorkbench;
+import dev.tilera.capes.Capes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
@@ -13,6 +14,11 @@ public class ClientProxy extends CommonProxy {
             return new GuiArcaneWorkbench(player.inventory, (TileArcaneWorkbench) world.getTileEntity(x, y, z));
         }
         return null;
+    }
+
+    @Override
+    public void init() {
+        Capes.initCapes();
     }
 
 }
