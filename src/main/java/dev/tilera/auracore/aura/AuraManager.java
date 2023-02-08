@@ -228,6 +228,39 @@ public class AuraManager {
         return closest;
     }
 
+    public static int getClosestAuraWithinRange(World world, double x, double z, double range) {
+        int dim = world.provider.dimensionId;
+        int cx = MathHelper.floor_double((double)x) / 16;
+        int cz = MathHelper.floor_double((double)z) / 16;
+        if (world.isRemote) {
+            return -1;
+        }
+        int size = 5;
+        int closest = -1;
+        double clRange = Double.MAX_VALUE;
+        synchronized (saveLock) {
+            for (int xx = -size; xx <= size; ++xx) {
+                for (int zz = -size; zz <= size; ++zz) {
+                    List<Integer> nc = nodeChunks.get(Arrays.asList(dim, cx + xx, cz + zz));
+                    if (nc == null || nc.size() <= 0) continue;
+                    for (Integer key : nc) {
+                        try {
+                            double zd;
+                            double xd;
+                            double distSq;
+                            AuraNode node = AuraManager.copyNode(AuraManager.getNode(key));
+                            if (node == null || node.locked || !Utils.isChunkLoaded(world, MathHelper.floor_double((double)node.xPos), MathHelper.floor_double((double)node.zPos)) || !(range * range >= (distSq = (xd = node.xPos - x) * xd +  (zd = node.zPos - z) * zd)) || !(distSq < clRange)) continue;
+                            closest = key;
+                            clRange = distSq;
+                        }
+                        catch (Exception e) {}
+                    }
+                }
+            }
+        }
+        return closest;
+    }
+
     public static ArrayList<Integer> getAurasWithin(World world, double x, double y, double z) {
         int dim = world.provider.dimensionId;
         int cx = MathHelper.floor_double((double)x) / 16;

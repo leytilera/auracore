@@ -98,7 +98,7 @@ public class WorldGenerator implements IWorldGenerator {
                 auraGen = true;
                 this.structureNode.put(var7.hashCode(), true);
                 int yPos = world.getHeightValue(var7.chunkPosX, var7.chunkPosZ) + 3;
-                int nearKey = AuraManager.getClosestAuraWithinRange(world, var7.chunkPosX, yPos, var7.chunkPosZ, 10);
+                int nearKey = AuraManager.getClosestAuraWithinRange(world, var7.chunkPosX, var7.chunkPosZ, 10);
                 if (nearKey < 0 && yPos > 0) {
                     int value = random.nextInt(200) + 800;
                     AuraManager.registerAuraNode(world, (short)value, EnumNodeType.NORMAL, world.provider.dimensionId, var7.chunkPosX, yPos, var7.chunkPosZ);
