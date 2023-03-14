@@ -207,6 +207,7 @@ public class LegacyAspects {
             int var7 = (Integer)var6.next();
             ThaumcraftApi.registerObjectTag(new ItemStack(Items.potionitem, 1, var7), new AspectList(new ItemStack(Items.potionitem)));
         }
+        ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemWispEssence, 1, 0), (new AspectList()).add(Aspect.AURA, 2));
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemEssence), new AspectList().add(Aspect.VOID, 1).add(Aspect.CRYSTAL, 1));
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemNugget, 1, 31), new AspectList().add(Aspect.METAL, 12).add(Aspects.ROCK, 2).add(Aspects.VALUABLE, 8));
         ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemNugget, 1, 16), new AspectList().add(Aspect.METAL, 12).add(Aspects.ROCK, 2));
