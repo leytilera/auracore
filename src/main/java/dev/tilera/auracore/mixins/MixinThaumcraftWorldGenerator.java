@@ -35,7 +35,7 @@ public abstract class MixinThaumcraftWorldGenerator {
         int z = chunkZ * 16 + random.nextInt(16);
         int y = world.getHeightValue(x, z);
         BiomeGenBase bio = world.getBiomeGenForCoords(x, z);
-        if (bio.equals(ThaumcraftWorldGenerator.biomeMagicalForest) || bio.equals(ThaumcraftWorldGenerator.biomeTaint) || !BiomeDictionary.isBiomeOfType(bio, Type.MAGICAL) && bio.biomeID != BiomeGenBase.forestHills.biomeID && bio.biomeID != BiomeGenBase.birchForestHills.biomeID) {
+        if (bio.equals(ThaumcraftWorldGenerator.biomeMagicalForest) || bio.equals(ThaumcraftWorldGenerator.biomeTaint) || !BiomeDictionary.isBiomeOfType(bio, Type.MAGICAL) && BiomeDictionary.isBiomeOfType(bio, Type.FOREST)) {
            return false;
         } else if (dev.tilera.auracore.Config.replaceSilverwood) {
            boolean t = (new WorldGenSilverwoodTreesOld(false)).generate(world, random, x, y, z);
