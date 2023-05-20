@@ -30,6 +30,7 @@ class SlotWorkbenchWand extends Slot {
             !this.workbench.getWorldObj().isRemote && 
             this.inventory.getStackInSlot(this.getSlotIndex()) != null &&
             this.inventory.getStackInSlot(this.getSlotIndex()).getItem() instanceof ItemWandCasting) {
+                player.inventory.setItemStack(null);
                 player.openGui(Thaumcraft.instance, 13, this.workbench.getWorldObj(), this.workbench.xCoord, this.workbench.yCoord, this.workbench.zCoord);
             }
     }
