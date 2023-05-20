@@ -27,4 +27,6 @@ public interface ICrystal {
      */
     void harvestShard(EntityPlayer player);
 
+    boolean canHarvest(EntityPlayer player);
+
 }

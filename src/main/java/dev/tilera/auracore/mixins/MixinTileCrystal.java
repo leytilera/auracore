@@ -119,4 +119,10 @@ public abstract class MixinTileCrystal extends TileThaumcraft implements ICrysta
         worldObj.spawnEntityInWorld(entity);
     }
 
+    @Override
+    public boolean canHarvest(EntityPlayer player) {
+        int md = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+        return md != 6 && md != 9 && count > 1;
+    }
+
 }
