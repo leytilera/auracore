@@ -122,7 +122,7 @@ public abstract class MixinTileCrystal extends TileThaumcraft implements ICrysta
     @Override
     public boolean canHarvest(EntityPlayer player) {
         int md = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
-        return md != 6 && md != 9 && count > 1;
+        return md != 6 && md != 9 && crystals > 1;
     }
 
 }
