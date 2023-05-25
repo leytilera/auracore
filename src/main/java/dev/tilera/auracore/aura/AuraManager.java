@@ -3,8 +3,10 @@ package dev.tilera.auracore.aura;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -838,7 +840,7 @@ public class AuraManager {
         if (key < 0) {
             key = registerAuraNode(world, (short)(world.rand.nextInt(50) + 50), EnumNodeType.DARK, world.provider.dimensionId, x, y, z);
         }
-        queueNodeChanges(key, 0, 0, taint, false, null, x, y, z);
+        queueNodeChanges(key, 0, 0, taint, false, null, 0, 0, 0);
     }
 
     public static AuraNode copyNode(AuraNode in) {
