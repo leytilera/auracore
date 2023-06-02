@@ -24,7 +24,7 @@ apply from: './gradle/scripts/mixins.gradle'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = "1.9.1"
+version = "1.10.0-beta-1"
 group= "dev.tilera"
 archivesBaseName = "auracore"
 
