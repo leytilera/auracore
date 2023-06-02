@@ -47,6 +47,17 @@ public class EventHandler {
                         }
                     }
                     nodeNBT.setTag("flux", flux);
+                    NBTTagList stasis = new NBTTagList();
+                    if (node.stasis.size() > 0) {
+                        for (Aspect tag : node.stasis.getAspects()) {
+                            if (tag == null) continue;
+                            NBTTagCompound f = new NBTTagCompound();
+                            f.setString("id", tag.getTag());
+                            f.setInteger("amount", node.stasis.getAmount(tag));
+                            stasis.appendTag(f);
+                        }
+                    }
+                    nodeNBT.setTag("stasis", stasis);
                     nodelist.appendTag(nodeNBT);
                 }
             }
@@ -82,6 +93,15 @@ public class EventHandler {
                         NBTTagCompound flux = fluxTags.getCompoundTagAt(j);
                         if (!flux.hasKey("id") || !flux.hasKey("amount")) continue;
                         node.flux.add(Aspect.getAspect(flux.getString("id")), flux.getInteger("amount"));
+                    }
+                    node.stasis = new AspectList();
+                    if (nodeData.hasKey("stasis")) {
+                        NBTTagList stasisTags = nodeData.getTagList("stasis", 10);
+                        for (int j = 0; j < stasisTags.tagCount(); ++j) {
+                            NBTTagCompound stasis = stasisTags.getCompoundTagAt(j);
+                            if (!stasis.hasKey("id") || !stasis.hasKey("amount")) continue;
+                            node.stasis.add(Aspect.getAspect(stasis.getString("id")), stasis.getInteger("amount"));
+                        }
                     }
                     AuraManager.auraNodes.put(node.key, node);
                     AuraManager.addToAuraUpdateList(node);

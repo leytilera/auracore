@@ -826,12 +826,17 @@ public class AuraManager {
     }
 
     public static void queueNodeChanges(int key, int levelMod, int baseMod, boolean toggleLock, AspectList flx, float x, float y, float z) {
-        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, 0, toggleLock, flx, x, y, z);
+        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, 0, toggleLock, flx, null, x, y, z);
         auraUpdateQueue.add(nc);
     }
 
     public static void queueNodeChanges(int key, int levelMod, int baseMod, int taint, boolean toggleLock, AspectList flx, float x, float y, float z) {
-        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, taint, toggleLock, flx, x, y, z);
+        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, taint, toggleLock, flx, null, x, y, z);
+        auraUpdateQueue.add(nc);
+    }
+
+    public static void queueNodeChanges(int key, int levelMod, int baseMod, int taint, boolean toggleLock, AspectList flx, AspectList stasis, float x, float y, float z) {
+        NodeChanges nc = new NodeChanges(key, levelMod, baseMod, taint, toggleLock, flx, stasis, x, y, z);
         auraUpdateQueue.add(nc);
     }
 
@@ -841,6 +846,31 @@ public class AuraManager {
             key = registerAuraNode(world, (short)(world.rand.nextInt(50) + 50), EnumNodeType.DARK, world.provider.dimensionId, x, y, z);
         }
         queueNodeChanges(key, 0, 0, taint, false, null, 0, 0, 0);
+    }
+
+    public static void addGoodVibes(World world, int x, int y, int z, int amount) {
+        int key = getClosestAuraWithinRange(world, x, y, z, 64);
+        if (key < 0) return;
+        queueNodeChanges(key, 0, 0, 0, false, null, new AspectList().add(Aspect.MAGIC, amount), 0, 0, 0);
+    }
+
+    public static void addBadVibes(World world, int x, int y, int z, int amount) {
+        int key = getClosestAuraWithinRange(world, x, y, z, 64);
+        if (key < 0) return;
+        queueNodeChanges(key, 0, 0, 0, false, new AspectList().add(Aspect.TAINT, amount), null, 0, 0, 0);
+    }
+
+    public static void addBoost(World world, int x, int y, int z, int amount) {
+        int key = getClosestAuraWithinRange(world, x, y, z, 64);
+        if (key < 0) return;
+        queueNodeChanges(key, 0, 0, 0, false, null, new AspectList().add(Aspects.TIME, amount), 0, 0, 0);
+    }
+
+    public static int getBoost(World world, int x, int y, int z) {
+        int key = getClosestAuraWithinRange(world, x, y, z, 64);
+        if (key < 0) return 0;
+        AuraNode node = getNode(key);
+        return node.stasis.getAmount(Aspects.TIME);
     }
 
     public static AuraNode copyNode(AuraNode in) {
@@ -856,6 +886,11 @@ public class AuraManager {
                 outflux.add(tag, in.flux.getAmount(tag));
             }
             out.flux = outflux;
+            AspectList outstasis = new AspectList();
+            for (Aspect tag : in.stasis.getAspects()) {
+                outstasis.add(tag, in.stasis.getAmount(tag));
+            }
+            out.stasis = outstasis;
             out.dimension = in.dimension;
             out.xPos = in.xPos;
             out.yPos = in.yPos;
@@ -876,6 +911,7 @@ public class AuraManager {
         out.taint = in.taint;
         out.type = in.type;
         out.flux = in.flux;
+        out.stasis = in.stasis;
         out.dimension = in.dimension;
         out.xPos = in.xPos;
         out.yPos = in.yPos;
@@ -891,17 +927,19 @@ public class AuraManager {
         int taintMod = 0;
         boolean lock = false;
         AspectList flux = null;
+        AspectList stasis = null;
         float motionX;
         float motionY;
         float motionZ;
 
-        NodeChanges(int k, int l, int b, int t, boolean lo, AspectList ot, float x, float y, float z) {
+        NodeChanges(int k, int l, int b, int t, boolean lo, AspectList flux, AspectList stasis, float x, float y, float z) {
             this.key = k;
             this.levelMod = l;
             this.baseMod = b;
             this.taintMod = t;
             this.lock = lo;
-            this.flux = ot;
+            this.flux = flux;
+            this.stasis = stasis;
             this.motionX = x;
             this.motionY = y;
             this.motionZ = z;

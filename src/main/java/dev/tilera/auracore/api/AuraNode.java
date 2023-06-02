@@ -10,6 +10,7 @@ public class AuraNode implements Serializable {
     public short baseLevel;
     public short taint;
     public AspectList flux = new AspectList();
+    public AspectList stasis = new AspectList();
     public EnumNodeType type;
     public int dimension;
     public double xPos;

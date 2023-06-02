@@ -74,6 +74,38 @@ public class AuraUpdateThread
                                     }
                                 }
                             }
+                            if (nc.stasis != null) {
+                                for (Aspect tag : nc.stasis.getAspects()) {
+                                    if (nc.stasis.getAmount(tag) > 0) {
+                                        node.stasis.add(tag, nc.stasis.getAmount(tag));
+                                        continue;
+                                    }
+                                    node.stasis.reduce(tag, -nc.stasis.getAmount(tag)); // TODO:WTF
+                                }
+                            }
+                            if (node.stasis.size() > 0) {
+                                ArrayList<Aspect> dt = new ArrayList<>();
+                                ArrayList<Aspect> red = new ArrayList<>();
+                                for (Aspect tag : node.stasis.getAspects()) {
+                                    if (node.stasis.getAmount(tag) <= 0) {
+                                        dt.add(tag);
+                                        continue;
+                                    }
+                                    if (node.stasis.getAmount(tag) <= 100)
+                                        continue;
+                                    red.add(tag);
+                                }
+                                if (red.size() > 0) {
+                                    for (Aspect tag : red) {
+                                        node.stasis.reduce(tag, node.stasis.getAmount(tag) - 100);
+                                    }
+                                }
+                                if (dt.size() > 0) {
+                                    for (Aspect tag : dt) {
+                                        node.stasis.remove(tag);
+                                    }
+                                }
+                            }
                             if (nc.motionX != 0.0f || nc.motionY != 0.0f || nc.motionZ != 0.0f) {
                                 int cx = MathHelper.floor_double((double) node.xPos) / 16;
                                 cz = MathHelper.floor_double((double) node.zPos) / 16;
