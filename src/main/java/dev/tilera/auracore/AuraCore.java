@@ -9,9 +9,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 import dev.tilera.auracore.api.Aspects;
 import dev.tilera.auracore.aura.AuraCalculationThread;
 import dev.tilera.auracore.aura.AuraDeleteThread;
@@ -21,15 +19,12 @@ import dev.tilera.auracore.aura.AuraWorldTicker;
 import dev.tilera.auracore.client.GUITicker;
 import dev.tilera.auracore.client.RenderEventHandler;
 import dev.tilera.auracore.network.AuraDeletePacket;
-import dev.tilera.auracore.network.AuraDeletePacketHandler;
 import dev.tilera.auracore.network.AuraPacket;
-import dev.tilera.auracore.network.AuraPacketHandler;
 import dev.tilera.auracore.network.AuraTransferFXPacket;
-import dev.tilera.auracore.network.AuraTransferFXPacketHandler;
 import dev.tilera.auracore.network.NodeZapPacket;
-import dev.tilera.auracore.network.NodeZapPacketHandler;
 import dev.tilera.auracore.proxy.CommonProxy;
 import dev.tilera.auracore.world.WorldGenerator;
+import net.anvilcraft.anvillib.network.AnvilChannel;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import thaumcraft.api.ThaumcraftApi;
@@ -38,10 +33,10 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 
-@Mod(modid = "auracore", name = "AuraCore", version = "{VERSION}", dependencies = "required-after:Thaumcraft;after:MagicBees")
+@Mod(modid = "auracore", name = "AuraCore", version = "{VERSION}", dependencies = "required-after:anvillib;required-after:Thaumcraft;after:MagicBees")
 public class AuraCore {
 
-    public static SimpleNetworkWrapper CHANNEL;
+    public static AnvilChannel CHANNEL;
     @Mod.Instance("auracore")
     public static AuraCore INSTANCE;
     @SidedProxy(modId = "auracore", clientSide = "dev.tilera.auracore.proxy.ClientProxy", serverSide = "dev.tilera.auracore.proxy.CommonProxy")
@@ -51,12 +46,11 @@ public class AuraCore {
     public void preInit(FMLPreInitializationEvent e) {
         Config.load();
         Aspects.load();
-        CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel("auracore");
-        int pktID = 0;
-        AuraCore.CHANNEL.registerMessage(AuraPacketHandler.class, AuraPacket.class, pktID++, Side.CLIENT);
-        AuraCore.CHANNEL.registerMessage(AuraDeletePacketHandler.class, AuraDeletePacket.class, pktID++, Side.CLIENT);
-        AuraCore.CHANNEL.registerMessage(AuraTransferFXPacketHandler.class, AuraTransferFXPacket.class, pktID++, Side.CLIENT);
-        AuraCore.CHANNEL.registerMessage(NodeZapPacketHandler.class, NodeZapPacket.class, pktID++, Side.CLIENT);
+        CHANNEL = new AnvilChannel("auracore");
+        AuraCore.CHANNEL.register(AuraPacket.class);
+        AuraCore.CHANNEL.register(AuraDeletePacket.class);
+        AuraCore.CHANNEL.register(AuraTransferFXPacket.class);
+        AuraCore.CHANNEL.register(NodeZapPacket.class);
         proxy.preInit();
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());

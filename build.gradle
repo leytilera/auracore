@@ -37,11 +37,13 @@ minecraft {
 }
 
 repositories {
+    mavenLocal()
     maven { url = "https://maven.tilera.xyz" }
     maven { url = "https://jitpack.io" }
 }
 
 dependencies {
+    implementation "net.anvilcraft:anvillib-7:0.1.0:deobf"
     implementation "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:deobf"
     implementation "com.github.tox1cozZ:mixin-booter-legacy:1.1.2"
     annotationProcessor "com.github.tox1cozZ:mixin-booter-legacy:1.1.2:processor"

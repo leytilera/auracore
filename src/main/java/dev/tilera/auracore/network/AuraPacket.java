@@ -1,10 +1,20 @@
 package dev.tilera.auracore.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import dev.tilera.auracore.api.AuraNode;
+import dev.tilera.auracore.client.AuraManagerClient;
+import dev.tilera.auracore.client.AuraManagerClient.NodeHistoryStats;
+import dev.tilera.auracore.client.AuraManagerClient.NodeStats;
 import io.netty.buffer.ByteBuf;
+import net.anvilcraft.anvillib.network.AnvilPacket;
+import net.anvilcraft.anvillib.network.IAnvilPacket;
+import net.minecraft.world.World;
 
-public class AuraPacket implements IMessage {
+@AnvilPacket(Side.CLIENT)
+public class AuraPacket implements IAnvilPacket {
 
     public int key;
     public double x;
@@ -62,6 +72,19 @@ public class AuraPacket implements IMessage {
         buf.writeBoolean(lock);
         buf.writeByte(type);
         buf.writeBoolean(virtual);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void handle(MessageContext ctx) {
+        World world = FMLClientHandler.instance().getWorldClient();
+        if (AuraManagerClient.auraClientHistory.get(this.key) != null) {
+            AuraManagerClient.auraClientHistory.put(this.key, new NodeHistoryStats(AuraManagerClient.auraClientList.get(this.key)));
+        }
+        AuraManagerClient.auraClientList.put(this.key, new NodeStats(this, world.provider.dimensionId));
+        if (AuraManagerClient.auraClientHistory.get(this.key) == null) {
+            AuraManagerClient.auraClientHistory.put(this.key, new NodeHistoryStats(this.level, this.flux, this.taint));
+        }
     }
     
 }
